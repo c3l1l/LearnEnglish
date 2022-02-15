@@ -7,26 +7,20 @@ using System.Threading.Tasks;
 
 namespace LearnEnglish.Models
 {
-    public class Content
+    public class ContentDetail
     {
-        public int ContentID { get; set; }
+        public int ContentDetailID { get; set; }
         public string Name { get; set; }
         public sbyte Rank { get; set; }
+        [Column(TypeName = "VARCHAR"), MaxLength(20)]
+        public ContentType ContentType { get; set; }
         public DateTime CreatedDate { get; set; }
 
-        [Column(TypeName = "VARCHAR"), MaxLength(20)]
-        public Category Category { get; set; }
-        public Section Section { get; set; }
-        public ContentDetail ContentDetail { get; set; }
-
     }
 
-    public enum Category
+    public enum ContentType
     {
-        GrammarTips,
-        Vocabulary,
-        Practice,
-        ProgressTest
+        Instruction,
+        Activity
     }
-    
 }
