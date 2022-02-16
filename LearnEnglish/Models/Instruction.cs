@@ -13,5 +13,8 @@ namespace LearnEnglish.Models
         public sbyte Rank { get; set; }
         public DateTime CreatedDate { get; set; }
         public ContentDetail ContentDetail { get; set; }
+
+        //Todo instruction tablosu ikiye ayrilacak instruction details ile beraber
+        //Listening dosyalarinin oldugu listede eklenecek.
     }
 }
