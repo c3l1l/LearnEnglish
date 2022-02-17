@@ -15,15 +15,15 @@ namespace LearnEnglish.Models
         public sbyte Rank { get; set; }
         public DateTime CreatedDate { get; set; }
         [Column(TypeName = "NVARCHAR"), MaxLength(40)]
-        public ActivityType ActivityType { get; set; }
-        public ContentDetail ContentDetail { get; set; }
+        public Question Question { get; set; }
+        public Content Content { get; set; }
     }
        //Todo Activity Type'larin siniflarinda question ve ilgili ture gore secenekler eklenecek...
-    public enum ActivityType
-    {
-        MultipleChoiceQuestion,
-        SingleGapFillingQuestion,
-        MultiGapFillingQuestion,
-        TrueFalseQuestion,
-    }
+    //public enum ActivityType
+    //{
+    //    MultipleChoiceQuestion,
+    //    SingleGapFillingQuestion,
+    //    MultiGapFillingQuestion,
+    //    TrueFalseQuestion,
+    //}
 }

@@ -9,14 +9,14 @@ namespace LearnEnglish.Models
     {
         public Section()
         {
-            Contents = new List<Content>();
+            Categories = new List<Category>();
         }
         public int SectionId { get; set; }
         public string Title { get; set; }
         public sbyte Rank { get; set; }
         public DateTime CreatedDate { get; set; }
         public Theme Theme { get; set; }
-        public List<Content> Contents { get; set; }
+        public List<Category> Categories { get; set; }
 
 
     }

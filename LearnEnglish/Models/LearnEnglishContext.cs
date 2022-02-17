@@ -16,8 +16,8 @@ namespace LearnEnglish.Models
         public virtual DbSet<Theme> Themes { get; set; }
         public virtual DbSet<Section> Sections { get; set; }
         public virtual DbSet<Content> Contents { get; set; }
-        public virtual DbSet<ContentDetail> ContentDetails { get; set; }
-        public virtual DbSet<Instruction> Instructions { get; set; }
+        public virtual DbSet<Instruction> ContentDetails { get; set; }
+        public virtual DbSet<Question> Questions { get; set; }
 
 
 
@@ -47,31 +47,31 @@ namespace LearnEnglish.Models
                 Rank = 0
 
             });
-            modelBuilder.Entity<Content>().HasData(
-            new Content{
-                ContentId=1,
-                Category = Category.GrammarTips,
-                CreatedDate = DateTime.Now,
-                Name = "Present Perfect T.",
-                Rank=0
-            });
-            modelBuilder.Entity<ContentDetail>().HasData(
-            new ContentDetail{
-                ContentDetailId = 1,
-                ContentType = ContentType.Instruction,
-                CreatedDate = DateTime.Now,
-                Name = "Instruction 1",
-                Rank = 0
-            });
-            modelBuilder.Entity<Instruction>().HasData(
-                new Instruction
-                {
-                    InstructionId = 1,
-                    CreatedDate = DateTime.Now,
-                    Title = "Present Perfect Tense Title",
-                    Rank = 0
-                }
-                );
+            //modelBuilder.Entity<Content>().HasData(
+            //new Content{
+            //    ContentId=1,
+            //    Category = Category.GrammarTips,
+            //    CreatedDate = DateTime.Now,
+            //    Title = "Present Perfect T.",
+            //    Rank=0
+            //});
+            //modelBuilder.Entity<ContentDetail>().HasData(
+            //new ContentDetail{
+            //    ContentDetailId = 1,
+            //    ContentType = ContentType.Instruction,
+            //    CreatedDate = DateTime.Now,
+            //    Name = "Instruction 1",
+            //    Rank = 0
+            //});
+            //modelBuilder.Entity<Instruction>().HasData(
+            //    new Instruction
+            //    {
+            //        InstructionId = 1,
+            //        CreatedDate = DateTime.Now,
+            //        Title = "Present Perfect Tense Title",
+            //        Rank = 0
+            //    }
+            //    );
         }
     }
 }

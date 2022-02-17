@@ -7,6 +7,7 @@ namespace LearnEnglish.Models
 {
     public class InstructionSound : Sound
     {
+        public  int InstructionSoundId { get; set; }
         public sbyte Rank { get; set; }
         public DateTime CreatedDate { get; set; }
         public Instruction Instruction { get; set; }
