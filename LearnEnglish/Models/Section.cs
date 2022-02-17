@@ -11,7 +11,7 @@ namespace LearnEnglish.Models
         {
             Contents = new List<Content>();
         }
-        public int SectionID { get; set; }
+        public int SectionId { get; set; }
         public string Title { get; set; }
         public sbyte Rank { get; set; }
         public DateTime CreatedDate { get; set; }

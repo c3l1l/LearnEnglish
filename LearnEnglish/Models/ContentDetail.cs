@@ -9,18 +9,20 @@ namespace LearnEnglish.Models
 {
     public class ContentDetail
     {
-        public int ContentDetailID { get; set; }
+        public int ContentDetailId { get; set; }
         public string Name { get; set; }
         public sbyte Rank { get; set; }
         [Column(TypeName = "VARCHAR"), MaxLength(20)]
         public ContentType ContentType { get; set; }
         public DateTime CreatedDate { get; set; }
+        public List<Instruction> Instructions { get; set; }
+        public List<QuestionActivity> QuestionActivities { get; set; }
 
     }
 
     public enum ContentType
     {
         Instruction,
-        Activity
+        QuestionActivity
     }
 }

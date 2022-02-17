@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LearnEnglish.Models
 {
-    public class Activity
+    public class QuestionActivity
     {
         public int ActivityId { get; set; }
         public string Title { get; set; }

@@ -9,7 +9,7 @@ namespace LearnEnglish.Models
 {
     public class Content
     {
-        public int ContentID { get; set; }
+        public int ContentId { get; set; }
         public string Name { get; set; }
         public sbyte Rank { get; set; }
         public DateTime CreatedDate { get; set; }
