@@ -15,7 +15,7 @@ namespace LearnEnglish.Models
         }
         public int ThemeId { get; set; }
         public string Title { get; set; }
-        public sbyte Rank { get; set; }
+        public byte Rank { get; set; }
         public sbyte IsActive  { get; set; }
         public DateTime CreatedDate { get; set; }
 

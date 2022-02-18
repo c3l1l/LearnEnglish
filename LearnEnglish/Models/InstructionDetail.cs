@@ -9,7 +9,7 @@ namespace LearnEnglish.Models
     {
         public int InstructionDetailId { get; set; }
         public string Info { get; set; }
-        public sbyte Rank { get; set; }
+        public byte Rank { get; set; }
         public DateTime CreatedDate { get; set; }
         public Instruction Instruction { get; set; }
 

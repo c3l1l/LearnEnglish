@@ -11,7 +11,7 @@ namespace LearnEnglish.Models
     {
         public int CategoryId { get; set; }
         public string Name { get; set; }
-        public sbyte Rank { get; set; }
+        public byte Rank { get; set; }
         public DateTime CreatedDate { get; set; }
 
         [Column(TypeName = "VARCHAR"), MaxLength(20)]

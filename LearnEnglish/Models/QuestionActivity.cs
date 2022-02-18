@@ -12,7 +12,7 @@ namespace LearnEnglish.Models
         public int ActivityId { get; set; }
         public string Title { get; set; }
        
-        public sbyte Rank { get; set; }
+        public byte Rank { get; set; }
         public DateTime CreatedDate { get; set; }
         [Column(TypeName = "NVARCHAR"), MaxLength(40)]
         public Question Question { get; set; }

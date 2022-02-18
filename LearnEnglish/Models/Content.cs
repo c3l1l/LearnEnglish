@@ -11,7 +11,7 @@ namespace LearnEnglish.Models
     {
         public int ContentId { get; set; }
         public string Title { get; set; }
-        public sbyte Rank { get; set; }
+        public byte Rank { get; set; }
         public DateTime CreatedDate { get; set; }
         public Category Category { get; set; }
 

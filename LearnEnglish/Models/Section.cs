@@ -13,7 +13,7 @@ namespace LearnEnglish.Models
         }
         public int SectionId { get; set; }
         public string Title { get; set; }
-        public sbyte Rank { get; set; }
+        public byte Rank { get; set; }
         public DateTime CreatedDate { get; set; }
         public Theme Theme { get; set; }
         public List<Category> Categories { get; set; }
