@@ -15,10 +15,18 @@ namespace LearnEnglish.Models
          */
         public virtual DbSet<Theme> Themes { get; set; }
         public virtual DbSet<Section> Sections { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+      
         public virtual DbSet<Content> Contents { get; set; }
-        public virtual DbSet<Instruction> ContentDetails { get; set; }
+        public virtual DbSet<Instruction> Instruction { get; set; }
+        public virtual DbSet<InstructionDetail> InstructionDetails { get; set; }
+        public virtual DbSet<InstructionSound> InstructionSounds { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
 
+        public virtual DbSet<TrueFalseQuestion> TrueFalseQuestions { get; set; }
+        public virtual DbSet<SingleGapFillingQuestion> SingleGapFillingQuestions { get; set; }
+        public virtual DbSet<MultiGapFillingQuestion> MultiGapFillingQuestions { get; set; }
+        public virtual DbSet<MultipleChoiceQuestion> MultipleChoiceQuestions { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -47,31 +55,34 @@ namespace LearnEnglish.Models
                 Rank = 0
 
             });
-            //modelBuilder.Entity<Content>().HasData(
-            //new Content{
-            //    ContentId=1,
-            //    Category = Category.GrammarTips,
-            //    CreatedDate = DateTime.Now,
-            //    Title = "Present Perfect T.",
-            //    Rank=0
-            //});
-            //modelBuilder.Entity<ContentDetail>().HasData(
-            //new ContentDetail{
-            //    ContentDetailId = 1,
-            //    ContentType = ContentType.Instruction,
-            //    CreatedDate = DateTime.Now,
-            //    Name = "Instruction 1",
-            //    Rank = 0
-            //});
-            //modelBuilder.Entity<Instruction>().HasData(
-            //    new Instruction
-            //    {
-            //        InstructionId = 1,
-            //        CreatedDate = DateTime.Now,
-            //        Title = "Present Perfect Tense Title",
-            //        Rank = 0
-            //    }
-            //    );
+            modelBuilder.Entity<Category>().HasData(
+                new Category
+                {
+                    CategoryId = 1,
+                    CategoryType = CategoryType.GrammarTips,
+                    CreatedDate = DateTime.Now,
+                    Name = "Grammar Tips _1",
+                    Rank = 0
+                });
+
+            modelBuilder.Entity<Content>().HasData(
+            new Content
+            {
+                ContentId = 1,
+                ContentType = ContentType.Instruction,
+                CreatedDate = DateTime.Now,
+                Title = "Present Perfect T.",
+                Rank = 0
+            });
+            modelBuilder.Entity<Instruction>().HasData(
+                new Instruction
+                {
+                    InstructionId = 1,
+                    Title = "Present Perfect T.",
+                    CreatedDate = DateTime.Now
+
+                });
+
         }
     }
 }

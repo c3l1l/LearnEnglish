@@ -15,7 +15,7 @@ namespace LearnEnglish.Models
         public DateTime CreatedDate { get; set; }
         public Category Category { get; set; }
 
-        [Column(TypeName = "VARCHAR"), MaxLength(20)]
+        [Column(TypeName = "VARCHAR"), MaxLength(25)]
         public ContentType ContentType { get; set; }
         public Instruction Instruction { get; set; }
         public Question Question { get; set; }
