@@ -9,5 +9,6 @@ namespace LearnEnglish.Models
     {
         public string Answer1 { get; set; }
         public string Answer2 { get; set; }
+        public QuestionActivity QuestionActivity { get; set; }
     }
 }

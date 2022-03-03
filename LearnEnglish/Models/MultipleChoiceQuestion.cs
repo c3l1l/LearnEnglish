@@ -12,5 +12,7 @@ namespace LearnEnglish.Models
         public string Choice2 { get; set; }
         public string Choice3 { get; set; }
         public string Choice4 { get; set; }
+        public QuestionActivity QuestionActivity { get; set; }
+
     }
 }

@@ -21,7 +21,7 @@ namespace LearnEnglish.Models
         public virtual DbSet<Instruction> Instruction { get; set; }
         public virtual DbSet<InstructionDetail> InstructionDetails { get; set; }
         public virtual DbSet<InstructionSound> InstructionSounds { get; set; }
-        public virtual DbSet<Question> Questions { get; set; }
+       
 
         public virtual DbSet<TrueFalseQuestion> TrueFalseQuestions { get; set; }
         public virtual DbSet<SingleGapFillingQuestion> SingleGapFillingQuestions { get; set; }
@@ -38,7 +38,8 @@ namespace LearnEnglish.Models
         {
             modelBuilder.Entity<Theme>().HasData(
                 new Theme
-                {   ThemeId = 1,
+                {
+                    ThemeId = 1,
                     Title = "Theme-1",
                     CreatedDate = DateTime.Now,
                     IsActive = 1,

@@ -8,5 +8,7 @@ namespace LearnEnglish.Models
     public class SingleGapFillingQuestion:Question
     {
         public string Answer { get; set; }
+        public QuestionActivity QuestionActivity { get; set; }
+
     }
 }

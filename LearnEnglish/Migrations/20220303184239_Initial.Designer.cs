@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnEnglish.Migrations
 {
     [DbContext(typeof(LearnEnglishContext))]
-    [Migration("20220302221250_Initial")]
+    [Migration("20220303184239_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,16 +50,6 @@ namespace LearnEnglish.Migrations
                     b.HasIndex("SectionId");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            CategoryId = 1,
-                            CategoryType = "GrammarTips",
-                            CreatedDate = new DateTime(2022, 3, 3, 1, 12, 49, 305, DateTimeKind.Local).AddTicks(8252),
-                            Name = "Grammar Tips _1",
-                            Rank = (byte)0
-                        });
                 });
 
             modelBuilder.Entity("LearnEnglish.Models.Content", b =>
@@ -83,7 +73,7 @@ namespace LearnEnglish.Migrations
                     b.Property<int?>("InstructionId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("QuestionId")
+                    b.Property<int?>("QuestionActivityId")
                         .HasColumnType("int");
 
                     b.Property<byte>("Rank")
@@ -98,19 +88,9 @@ namespace LearnEnglish.Migrations
 
                     b.HasIndex("InstructionId");
 
-                    b.HasIndex("QuestionId");
+                    b.HasIndex("QuestionActivityId");
 
                     b.ToTable("Contents");
-
-                    b.HasData(
-                        new
-                        {
-                            ContentId = 1,
-                            ContentType = "Instruction",
-                            CreatedDate = new DateTime(2022, 3, 3, 1, 12, 49, 306, DateTimeKind.Local).AddTicks(3050),
-                            Rank = (byte)0,
-                            Title = "Present Perfect T."
-                        });
                 });
 
             modelBuilder.Entity("LearnEnglish.Models.Instruction", b =>
@@ -129,14 +109,6 @@ namespace LearnEnglish.Migrations
                     b.HasKey("InstructionId");
 
                     b.ToTable("Instruction");
-
-                    b.HasData(
-                        new
-                        {
-                            InstructionId = 1,
-                            CreatedDate = new DateTime(2022, 3, 3, 1, 12, 49, 306, DateTimeKind.Local).AddTicks(7540),
-                            Title = "Present Perfect T."
-                        });
                 });
 
             modelBuilder.Entity("LearnEnglish.Models.InstructionDetail", b =>
@@ -197,24 +169,24 @@ namespace LearnEnglish.Migrations
                     b.ToTable("InstructionSounds");
                 });
 
-            modelBuilder.Entity("LearnEnglish.Models.Question", b =>
+            modelBuilder.Entity("LearnEnglish.Models.MultiGapFillingQuestion", b =>
                 {
                     b.Property<int>("QuestionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<string>("Answer1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Answer2")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("QuestionType")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("NVARCHAR(40)");
+                    b.Property<int?>("QuestionActivityId")
+                        .HasColumnType("int");
 
                     b.Property<byte>("Rank")
                         .HasColumnType("tinyint");
@@ -224,9 +196,73 @@ namespace LearnEnglish.Migrations
 
                     b.HasKey("QuestionId");
 
-                    b.ToTable("Questions");
+                    b.HasIndex("QuestionActivityId");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Question");
+                    b.ToTable("MultiGapFillingQuestions");
+                });
+
+            modelBuilder.Entity("LearnEnglish.Models.MultipleChoiceQuestion", b =>
+                {
+                    b.Property<int>("QuestionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Answer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Choice1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Choice2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Choice3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Choice4")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("QuestionActivityId")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("Rank")
+                        .HasColumnType("tinyint");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("QuestionId");
+
+                    b.HasIndex("QuestionActivityId");
+
+                    b.ToTable("MultipleChoiceQuestions");
+                });
+
+            modelBuilder.Entity("LearnEnglish.Models.QuestionActivity", b =>
+                {
+                    b.Property<int>("QuestionActivityId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("QuestionType")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("NVARCHAR(40)");
+
+                    b.Property<byte>("Rank")
+                        .HasColumnType("tinyint");
+
+                    b.HasKey("QuestionActivityId");
+
+                    b.ToTable("QuestionActivity");
                 });
 
             modelBuilder.Entity("LearnEnglish.Models.Section", b =>
@@ -253,15 +289,35 @@ namespace LearnEnglish.Migrations
                     b.HasIndex("ThemeId");
 
                     b.ToTable("Sections");
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            SectionId = 1,
-                            CreatedDate = new DateTime(2022, 3, 3, 1, 12, 49, 305, DateTimeKind.Local).AddTicks(5418),
-                            Rank = (byte)0,
-                            Title = "1A"
-                        });
+            modelBuilder.Entity("LearnEnglish.Models.SingleGapFillingQuestion", b =>
+                {
+                    b.Property<int>("QuestionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Answer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("QuestionActivityId")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("Rank")
+                        .HasColumnType("tinyint");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("QuestionId");
+
+                    b.HasIndex("QuestionActivityId");
+
+                    b.ToTable("SingleGapFillingQuestions");
                 });
 
             modelBuilder.Entity("LearnEnglish.Models.Theme", b =>
@@ -291,82 +347,41 @@ namespace LearnEnglish.Migrations
                     b.HasKey("ThemeId");
 
                     b.ToTable("Themes");
-
-                    b.HasData(
-                        new
-                        {
-                            ThemeId = 1,
-                            CreatedDate = new DateTime(2022, 3, 3, 1, 12, 49, 302, DateTimeKind.Local).AddTicks(4270),
-                            IsActive = (short)1,
-                            Level = "A1",
-                            Rank = (byte)0,
-                            Title = "Theme-1"
-                        });
-                });
-
-            modelBuilder.Entity("LearnEnglish.Models.MultiGapFillingQuestion", b =>
-                {
-                    b.HasBaseType("LearnEnglish.Models.Question");
-
-                    b.Property<string>("Answer1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Answer2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("MultiGapFillingQuestion");
-                });
-
-            modelBuilder.Entity("LearnEnglish.Models.MultipleChoiceQuestion", b =>
-                {
-                    b.HasBaseType("LearnEnglish.Models.Question");
-
-                    b.Property<string>("Answer")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Choice1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Choice2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Choice3")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Choice4")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("MultipleChoiceQuestion");
-                });
-
-            modelBuilder.Entity("LearnEnglish.Models.SingleGapFillingQuestion", b =>
-                {
-                    b.HasBaseType("LearnEnglish.Models.Question");
-
-                    b.Property<string>("Answer")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("SingleGapFillingQuestion_Answer");
-
-                    b.HasDiscriminator().HasValue("SingleGapFillingQuestion");
                 });
 
             modelBuilder.Entity("LearnEnglish.Models.TrueFalseQuestion", b =>
                 {
-                    b.HasBaseType("LearnEnglish.Models.Question");
+                    b.Property<int>("QuestionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<string>("Answer")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("TrueFalseQuestion_Answer");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Choice1")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("TrueFalseQuestion_Choice1");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Choice2")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("TrueFalseQuestion_Choice2");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("TrueFalseQuestion");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("QuestionActivityId")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("Rank")
+                        .HasColumnType("tinyint");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("QuestionId");
+
+                    b.HasIndex("QuestionActivityId");
+
+                    b.ToTable("TrueFalseQuestions");
                 });
 
             modelBuilder.Entity("LearnEnglish.Models.Category", b =>
@@ -386,15 +401,15 @@ namespace LearnEnglish.Migrations
                         .WithMany()
                         .HasForeignKey("InstructionId");
 
-                    b.HasOne("LearnEnglish.Models.Question", "Question")
+                    b.HasOne("LearnEnglish.Models.QuestionActivity", "QuestionActivity")
                         .WithMany()
-                        .HasForeignKey("QuestionId");
+                        .HasForeignKey("QuestionActivityId");
 
                     b.Navigation("Category");
 
                     b.Navigation("Instruction");
 
-                    b.Navigation("Question");
+                    b.Navigation("QuestionActivity");
                 });
 
             modelBuilder.Entity("LearnEnglish.Models.InstructionDetail", b =>
@@ -415,6 +430,24 @@ namespace LearnEnglish.Migrations
                     b.Navigation("Instruction");
                 });
 
+            modelBuilder.Entity("LearnEnglish.Models.MultiGapFillingQuestion", b =>
+                {
+                    b.HasOne("LearnEnglish.Models.QuestionActivity", "QuestionActivity")
+                        .WithMany("MultiGapFillingQuestions")
+                        .HasForeignKey("QuestionActivityId");
+
+                    b.Navigation("QuestionActivity");
+                });
+
+            modelBuilder.Entity("LearnEnglish.Models.MultipleChoiceQuestion", b =>
+                {
+                    b.HasOne("LearnEnglish.Models.QuestionActivity", "QuestionActivity")
+                        .WithMany("MultipleChoiceQuestions")
+                        .HasForeignKey("QuestionActivityId");
+
+                    b.Navigation("QuestionActivity");
+                });
+
             modelBuilder.Entity("LearnEnglish.Models.Section", b =>
                 {
                     b.HasOne("LearnEnglish.Models.Theme", "Theme")
@@ -422,6 +455,24 @@ namespace LearnEnglish.Migrations
                         .HasForeignKey("ThemeId");
 
                     b.Navigation("Theme");
+                });
+
+            modelBuilder.Entity("LearnEnglish.Models.SingleGapFillingQuestion", b =>
+                {
+                    b.HasOne("LearnEnglish.Models.QuestionActivity", "QuestionActivity")
+                        .WithMany("SingleGapFillingQuestions")
+                        .HasForeignKey("QuestionActivityId");
+
+                    b.Navigation("QuestionActivity");
+                });
+
+            modelBuilder.Entity("LearnEnglish.Models.TrueFalseQuestion", b =>
+                {
+                    b.HasOne("LearnEnglish.Models.QuestionActivity", "QuestionActivity")
+                        .WithMany("TrueFalseQuestions")
+                        .HasForeignKey("QuestionActivityId");
+
+                    b.Navigation("QuestionActivity");
                 });
 
             modelBuilder.Entity("LearnEnglish.Models.Category", b =>
@@ -434,6 +485,17 @@ namespace LearnEnglish.Migrations
                     b.Navigation("InstructionDetails");
 
                     b.Navigation("InstructionSounds");
+                });
+
+            modelBuilder.Entity("LearnEnglish.Models.QuestionActivity", b =>
+                {
+                    b.Navigation("MultiGapFillingQuestions");
+
+                    b.Navigation("MultipleChoiceQuestions");
+
+                    b.Navigation("SingleGapFillingQuestions");
+
+                    b.Navigation("TrueFalseQuestions");
                 });
 
             modelBuilder.Entity("LearnEnglish.Models.Section", b =>

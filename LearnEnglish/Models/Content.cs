@@ -18,7 +18,7 @@ namespace LearnEnglish.Models
         [Column(TypeName = "VARCHAR"), MaxLength(25)]
         public ContentType ContentType { get; set; }
         public Instruction Instruction { get; set; }
-        public Question Question { get; set; }
+        public QuestionActivity QuestionActivity { get; set; }
 
     }
     public enum ContentType
