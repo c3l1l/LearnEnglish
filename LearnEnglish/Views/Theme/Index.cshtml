@@ -1,0 +1,88 @@
+﻿@model List<LearnEnglish.Models.Theme>
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Dashboard</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard v1</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+
+        <!-- Main row -->
+        <div class="row">
+            <div class="col">
+               
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Theme List</h3>
+                        
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm float-left " style="width: 150px;">
+                                <a href="Theme/add">Ekle</a>
+                            </div>
+                            <div class="input-group input-group-sm " style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                            <tr>
+                                <th>Level</th>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Rank</th>
+                                <th>Active/Passive State</th>
+                                <th>Created Date</th>
+                                <th></th>
+                                
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var theme in Model)
+                                {
+                                <tr>
+                                    <td class="text-success font-weight-bold">@Html.DisplayFor(t=>theme.Level)</td>
+                                    <td>@Html.DisplayFor(t=>theme.ThemeId)</td>
+                                    <td>@Html.DisplayFor(t=>theme.Title)</td>
+                                    <td>@Html.DisplayFor(t=>theme.Rank)</td>
+                                    <td>@Html.DisplayFor(t=>theme.IsActive)</td>
+                                    <td>@theme.CreatedDate.ToShortDateString()</td>
+                                    <td>
+                                        <a href="/Theme/Edit/1"><button type="button" class="btn btn-success">Edit</button></a>
+                                        <a href="/Theme/Delete"><button type="button" class="btn btn-danger">Delete</button></a>
+                                    </td>
+                                     
+
+                                </tr>
+                                }
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row (main row) -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
