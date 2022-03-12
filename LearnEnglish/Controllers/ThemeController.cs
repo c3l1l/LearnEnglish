@@ -27,12 +27,12 @@ namespace LearnEnglish.Controllers
         // GET: ThemeController/Details/5
         public IActionResult Details(int id)
         {
-            return View("Details");
+            return View();
         }
 
         public IActionResult Add()
         {
-            return View("Add");
+            return View();
         }
 
       
