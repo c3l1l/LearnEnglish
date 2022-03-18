@@ -43,7 +43,7 @@ namespace LearnEnglish.Models
                     Title = "Theme-1",
                     CreatedDate = DateTime.Now,
                     IsActive = 1,
-                    Level = Level.A1,
+                    Level = Levels.A1,
                     Rank = 0,
                 }
             );

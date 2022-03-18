@@ -19,14 +19,14 @@ namespace LearnEnglish.Models
         public sbyte IsActive  { get; set; }
         public DateTime CreatedDate { get; set; }
 
-        [Column(TypeName = "VARCHAR"),MaxLength(2)]
-        public Level Level { get; set; }
+      //  [Column(TypeName = "VARCHAR"),MaxLength(2)]
+        public Levels Level { get; set; }
         public List<Section> Sections { get; set; }
 
 
 
     }
-   public enum Level{
+   public enum Levels{
         A1,
         A2,
         B1,

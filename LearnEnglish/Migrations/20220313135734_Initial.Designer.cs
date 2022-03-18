@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnEnglish.Migrations
 {
     [DbContext(typeof(LearnEnglishContext))]
-    [Migration("20220303184239_Initial")]
+    [Migration("20220313135734_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,16 @@ namespace LearnEnglish.Migrations
                     b.HasIndex("SectionId");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            CategoryType = "GrammarTips",
+                            CreatedDate = new DateTime(2022, 3, 13, 16, 57, 34, 24, DateTimeKind.Local).AddTicks(8079),
+                            Name = "Grammar Tips _1",
+                            Rank = (byte)0
+                        });
                 });
 
             modelBuilder.Entity("LearnEnglish.Models.Content", b =>
@@ -91,6 +101,16 @@ namespace LearnEnglish.Migrations
                     b.HasIndex("QuestionActivityId");
 
                     b.ToTable("Contents");
+
+                    b.HasData(
+                        new
+                        {
+                            ContentId = 1,
+                            ContentType = "Instruction",
+                            CreatedDate = new DateTime(2022, 3, 13, 16, 57, 34, 25, DateTimeKind.Local).AddTicks(2413),
+                            Rank = (byte)0,
+                            Title = "Present Perfect T."
+                        });
                 });
 
             modelBuilder.Entity("LearnEnglish.Models.Instruction", b =>
@@ -109,6 +129,14 @@ namespace LearnEnglish.Migrations
                     b.HasKey("InstructionId");
 
                     b.ToTable("Instruction");
+
+                    b.HasData(
+                        new
+                        {
+                            InstructionId = 1,
+                            CreatedDate = new DateTime(2022, 3, 13, 16, 57, 34, 25, DateTimeKind.Local).AddTicks(6984),
+                            Title = "Present Perfect T."
+                        });
                 });
 
             modelBuilder.Entity("LearnEnglish.Models.InstructionDetail", b =>
@@ -289,6 +317,15 @@ namespace LearnEnglish.Migrations
                     b.HasIndex("ThemeId");
 
                     b.ToTable("Sections");
+
+                    b.HasData(
+                        new
+                        {
+                            SectionId = 1,
+                            CreatedDate = new DateTime(2022, 3, 13, 16, 57, 34, 24, DateTimeKind.Local).AddTicks(3978),
+                            Rank = (byte)0,
+                            Title = "1A"
+                        });
                 });
 
             modelBuilder.Entity("LearnEnglish.Models.SingleGapFillingQuestion", b =>
@@ -333,10 +370,8 @@ namespace LearnEnglish.Migrations
                     b.Property<short>("IsActive")
                         .HasColumnType("smallint");
 
-                    b.Property<string>("Level")
-                        .IsRequired()
-                        .HasMaxLength(2)
-                        .HasColumnType("VARCHAR(2)");
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
 
                     b.Property<byte>("Rank")
                         .HasColumnType("tinyint");
@@ -347,6 +382,17 @@ namespace LearnEnglish.Migrations
                     b.HasKey("ThemeId");
 
                     b.ToTable("Themes");
+
+                    b.HasData(
+                        new
+                        {
+                            ThemeId = 1,
+                            CreatedDate = new DateTime(2022, 3, 13, 16, 57, 34, 19, DateTimeKind.Local).AddTicks(9026),
+                            IsActive = (short)1,
+                            Level = 0,
+                            Rank = (byte)0,
+                            Title = "Theme-1"
+                        });
                 });
 
             modelBuilder.Entity("LearnEnglish.Models.TrueFalseQuestion", b =>

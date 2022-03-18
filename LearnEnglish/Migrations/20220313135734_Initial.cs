@@ -46,7 +46,7 @@ namespace LearnEnglish.Migrations
                     Rank = table.Column<byte>(type: "tinyint", nullable: false),
                     IsActive = table.Column<short>(type: "smallint", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Level = table.Column<string>(type: "VARCHAR(2)", maxLength: 2, nullable: false)
+                    Level = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -279,6 +279,31 @@ namespace LearnEnglish.Migrations
                         principalColumn: "QuestionActivityId",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "CategoryId", "CategoryType", "CreatedDate", "Name", "Rank", "SectionId" },
+                values: new object[] { 1, "GrammarTips", new DateTime(2022, 3, 13, 16, 57, 34, 24, DateTimeKind.Local).AddTicks(8079), "Grammar Tips _1", (byte)0, null });
+
+            migrationBuilder.InsertData(
+                table: "Contents",
+                columns: new[] { "ContentId", "CategoryId", "ContentType", "CreatedDate", "InstructionId", "QuestionActivityId", "Rank", "Title" },
+                values: new object[] { 1, null, "Instruction", new DateTime(2022, 3, 13, 16, 57, 34, 25, DateTimeKind.Local).AddTicks(2413), null, null, (byte)0, "Present Perfect T." });
+
+            migrationBuilder.InsertData(
+                table: "Instruction",
+                columns: new[] { "InstructionId", "CreatedDate", "Title" },
+                values: new object[] { 1, new DateTime(2022, 3, 13, 16, 57, 34, 25, DateTimeKind.Local).AddTicks(6984), "Present Perfect T." });
+
+            migrationBuilder.InsertData(
+                table: "Sections",
+                columns: new[] { "SectionId", "CreatedDate", "Rank", "ThemeId", "Title" },
+                values: new object[] { 1, new DateTime(2022, 3, 13, 16, 57, 34, 24, DateTimeKind.Local).AddTicks(3978), (byte)0, null, "1A" });
+
+            migrationBuilder.InsertData(
+                table: "Themes",
+                columns: new[] { "ThemeId", "CreatedDate", "IsActive", "Level", "Rank", "Title" },
+                values: new object[] { 1, new DateTime(2022, 3, 13, 16, 57, 34, 19, DateTimeKind.Local).AddTicks(9026), (short)1, 0, (byte)0, "Theme-1" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_SectionId",

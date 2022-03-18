@@ -54,7 +54,7 @@ namespace LearnEnglish.Migrations
                         {
                             CategoryId = 1,
                             CategoryType = "GrammarTips",
-                            CreatedDate = new DateTime(2022, 3, 3, 22, 26, 56, 558, DateTimeKind.Local).AddTicks(6843),
+                            CreatedDate = new DateTime(2022, 3, 13, 16, 57, 34, 24, DateTimeKind.Local).AddTicks(8079),
                             Name = "Grammar Tips _1",
                             Rank = (byte)0
                         });
@@ -105,7 +105,7 @@ namespace LearnEnglish.Migrations
                         {
                             ContentId = 1,
                             ContentType = "Instruction",
-                            CreatedDate = new DateTime(2022, 3, 3, 22, 26, 56, 559, DateTimeKind.Local).AddTicks(4414),
+                            CreatedDate = new DateTime(2022, 3, 13, 16, 57, 34, 25, DateTimeKind.Local).AddTicks(2413),
                             Rank = (byte)0,
                             Title = "Present Perfect T."
                         });
@@ -132,7 +132,7 @@ namespace LearnEnglish.Migrations
                         new
                         {
                             InstructionId = 1,
-                            CreatedDate = new DateTime(2022, 3, 3, 22, 26, 56, 560, DateTimeKind.Local).AddTicks(2715),
+                            CreatedDate = new DateTime(2022, 3, 13, 16, 57, 34, 25, DateTimeKind.Local).AddTicks(6984),
                             Title = "Present Perfect T."
                         });
                 });
@@ -320,7 +320,7 @@ namespace LearnEnglish.Migrations
                         new
                         {
                             SectionId = 1,
-                            CreatedDate = new DateTime(2022, 3, 3, 22, 26, 56, 558, DateTimeKind.Local).AddTicks(2179),
+                            CreatedDate = new DateTime(2022, 3, 13, 16, 57, 34, 24, DateTimeKind.Local).AddTicks(3978),
                             Rank = (byte)0,
                             Title = "1A"
                         });
@@ -368,10 +368,8 @@ namespace LearnEnglish.Migrations
                     b.Property<short>("IsActive")
                         .HasColumnType("smallint");
 
-                    b.Property<string>("Level")
-                        .IsRequired()
-                        .HasMaxLength(2)
-                        .HasColumnType("VARCHAR(2)");
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
 
                     b.Property<byte>("Rank")
                         .HasColumnType("tinyint");
@@ -387,9 +385,9 @@ namespace LearnEnglish.Migrations
                         new
                         {
                             ThemeId = 1,
-                            CreatedDate = new DateTime(2022, 3, 3, 22, 26, 56, 553, DateTimeKind.Local).AddTicks(4107),
+                            CreatedDate = new DateTime(2022, 3, 13, 16, 57, 34, 19, DateTimeKind.Local).AddTicks(9026),
                             IsActive = (short)1,
-                            Level = "A1",
+                            Level = 0,
                             Rank = (byte)0,
                             Title = "Theme-1"
                         });

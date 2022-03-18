@@ -1,4 +1,6 @@
-﻿
+﻿@using Microsoft.AspNetCore.Mvc.ModelBinding
+@using Microsoft.EntityFrameworkCore.Query.Internal
+@model LearnEnglish.ViewModels.ThemeViewModel
 <!-- Content Header (Page header) -->
 <div class="content-header">
     <div class="container-fluid">
@@ -22,8 +24,53 @@
 
         <!-- Main row -->
         <div class="row">
-            <div class="col">
-               Add sinifi
+            <div class="col-6">
+                <div class="text-danger">
+                    @*@Html.ValidationMessageFor(m => m.Title, string.Empty, new { @class = "text-danger" }) <br />*@
+                    @Html.ValidationMessage("test")
+                    @ViewData["levelbilgi"]
+                    @ViewBag.ThemeSaveResult
+                    @{
+                        if (ViewBag.ThemeSaveResult != null)
+                        {
+                            if (ViewBag.ThemeSaveResult == true)
+                            {
+                                <p class="text-success"> New theme successfully saved.</p>
+                            }
+                            else if (ViewBag.ThemeSaveResult == false)
+                            {
+                                <p class="text-danger"> Something went wrong !.</p>
+                            }
+                        }
+                       
+                    }
+
+                </div>
+               
+
+                @using (var form = Html.BeginForm("Add", "Theme", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Title)
+                        @Html.TextBoxFor(m => m.Title, string.Empty, new { @class = "form-control", @placeholder = "Please Enter Theme Title" })
+                    </div>
+
+                    <div class="col-auto my-1">
+                        <div class="custom-control custom-checkbox mr-sm-2">
+
+                            @Html.CheckBoxFor(m => m.IsActive, new { @class = "custom-control-input", @id = "customControlAutosizing", @checked = "checked" })
+                            @Html.LabelFor(m => m.IsActive, new { @class = "custom-control-label", @for = "customControlAutosizing" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Level)
+                        @Html.DropDownListFor(m => m.Level, new SelectList(Enum.GetValues(typeof(Levels))), "Select Level", new { @class = "form-control" })
+
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Add">
+                    </div>
+                }
             </div>
         </div>
         <!-- /.row (main row) -->

@@ -30,7 +30,8 @@
                         
                         <div class="card-tools">
                             <div class="input-group input-group-sm float-left " style="width: 150px;">
-                                <a href="Theme/add">Ekle</a>
+                                
+                                <a class="btn btn-primary" asp-controller="Theme" asp-action="Add">Add</a>
                             </div>
                             <div class="input-group input-group-sm " style="width: 150px;">
                                 <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
@@ -68,8 +69,11 @@
                                     <td>@Html.DisplayFor(t=>theme.IsActive)</td>
                                     <td>@theme.CreatedDate.ToShortDateString()</td>
                                     <td>
-                                        <a href="/Theme/Edit/1"><button type="button" class="btn btn-success">Edit</button></a>
-                                        <a href="/Theme/Delete"><button type="button" class="btn btn-danger">Delete</button></a>
+                                        <a class="btn btn-success" asp-controller="Theme" asp-action="Edit" asp-route-id="1">Edit</a>
+                                        <a class="btn btn-danger" asp-controller="Theme" asp-action="Delete">Delete</a>
+                                        <button type="button" class="btn btn-danger"  onclick="ThemeDelete(@theme.ThemeId)">Sil</button>
+
+                                        
                                     </td>
                                      
 
@@ -86,3 +90,6 @@
     </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->
+@section PageScripts{
+    <script src="~/js/pages/theme.js" asp-append-version="true"></script>
+}
