@@ -7,6 +7,7 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1 class="m-0">Dashboard</h1>
+                @ViewData["levelbilgi"]
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -25,55 +26,82 @@
         <!-- Main row -->
         <div class="row">
             <div class="col-6">
-                <div class="text-danger">
-                    @*@Html.ValidationMessageFor(m => m.Title, string.Empty, new { @class = "text-danger" }) <br />*@
-                    @Html.ValidationMessage("test")
-                    @ViewData["levelbilgi"]
-                    @ViewBag.ThemeSaveResult
-                    @{
-                        if (ViewBag.ThemeSaveResult != null)
-                        {
-                            if (ViewBag.ThemeSaveResult == true)
-                            {
-                                <p class="text-success"> New theme successfully saved.</p>
-                            }
-                            else if (ViewBag.ThemeSaveResult == false)
-                            {
-                                <p class="text-danger"> Something went wrong !.</p>
-                            }
-                        }
-                       
-                    }
-
-                </div>
-               
-
-                @using (var form = Html.BeginForm("Add", "Theme", FormMethod.Post))
-                {
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Title)
-                        @Html.TextBoxFor(m => m.Title, string.Empty, new { @class = "form-control", @placeholder = "Please Enter Theme Title" })
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Add Theme Panel</h3>
                     </div>
+                    <form class="form-horizontal" id="form_theme_add" name="form_theme_add">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="theme_title" class="col-sm-2 col-form-label">Theme Title</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="theme_title" name="theme_title" placeholder="Theme Title">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="theme_active_passive" name="theme_active_passive" checked="checked">
+                                    <label class="custom-control-label" for="theme_active_passive">Active/Passive</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                @Html.LabelFor(m => m.Level,"Level",new { @class="col-sm-2 col-form-label"})
+                                <div class="col-sm-10">
 
-                    <div class="col-auto my-1">
-                        <div class="custom-control custom-checkbox mr-sm-2">
-
-                            @Html.CheckBoxFor(m => m.IsActive, new { @class = "custom-control-input", @id = "customControlAutosizing", @checked = "checked" })
-                            @Html.LabelFor(m => m.IsActive, new { @class = "custom-control-label", @for = "customControlAutosizing" })
+                                    @Html.DropDownListFor(m => m.Level, new SelectList(Enum.GetValues(typeof(Levels))), "Select Level", new { @class = "form-control" })
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Level)
-                        @Html.DropDownListFor(m => m.Level, new SelectList(Enum.GetValues(typeof(Levels))), "Select Level", new { @class = "form-control" })
-
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-primary" value="Add">
-                    </div>
-                }
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary float-right">Add</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
         <!-- /.row (main row) -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Responsive Hover Table</h3>
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>Level</th>
+                                    <th>ID</th>
+                                    <th>Title</th>
+                                    <th>Rank</th>
+                                    <th>Active/Passive State</th>
+                                    <th>Created Date</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
     </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->
+@section PageScripts{
+    <script src="~/js/pages/theme.js" asp-append-version="true"></script>
+}

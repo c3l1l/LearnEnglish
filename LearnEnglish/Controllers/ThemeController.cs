@@ -37,42 +37,75 @@ namespace LearnEnglish.Controllers
             ViewBag.ThemeSaveResult = null;
             return View();
         }
-        [HttpPost]
-        public IActionResult Add(ThemeViewModel theme)
-        {
-            if (ModelState.IsValid)
-            {
-                //Theme thm = new Theme();
-                //thm.Title = theme.Title;
-                ////thm.IsActive = theme.IsActive;
-                //thm.IsActive = (sbyte)((theme.IsActive==true)?1:0);
-                //thm.Level = theme.Level;
-                //thm.CreatedDate = DateTime.Now;
-                //ViewData["levelbilgi"] = thm.Level + "---" + thm.Title+"---"+thm.IsActive;
-                var newTheme = new Theme();
-                newTheme.Title = theme.Title;
-                newTheme.Level = theme.Level;
-                newTheme.IsActive= (sbyte)((theme.IsActive == true) ? 1 : 0);
-                newTheme.CreatedDate=DateTime.Now;
-                newTheme.Rank = byte.MinValue;
-                _db.Themes.Add(newTheme);
-                try
-                {
-                    _db.SaveChanges();
-                    ViewBag.ThemeSaveResult = true;
-                }
-                catch (Exception e)
-                {
-                    ViewBag.ThemeSaveResult = false;
-                }
+        
 
-                return View();
-            }
-            else
+        #region AddMetodYedek
+
+        //public IActionResult Add(ThemeViewModel theme)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        Theme thm = new Theme();
+        //        thm.Title = theme.Title;
+        //        thm.IsActive = theme.IsActive;
+        //        thm.IsActive = (sbyte)((theme.IsActive == true) ? 1 : 0);
+        //        thm.Level = theme.Level;
+        //        thm.CreatedDate = DateTime.Now;
+        //        ViewData["levelbilgi"] = thm.Level + "---" + thm.Title + "---" + thm.IsActive;
+        //        ------------
+        //            var newTheme = new Theme();
+        //        newTheme.Title = theme.Title;
+        //        newTheme.Level = theme.Level;
+        //        newTheme.IsActive = (sbyte)((theme.IsActive == true) ? 1 : 0);
+        //        newTheme.CreatedDate = DateTime.Now;
+        //        newTheme.Rank = byte.MinValue;
+        //        _db.Themes.Add(newTheme);
+        //        try
+        //        {
+        //            _db.SaveChanges();
+        //            ViewBag.ThemeSaveResult = true;
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            ViewBag.ThemeSaveResult = false;
+        //        }
+        //        return View();
+        //    }
+
+        //    else
+        //    {
+        //        ModelState.AddModelError("test", "Please fill all area and select a level !");
+        //        return View();
+        //    }
+
+        //}
+
+        #endregion
+
+        [HttpPost]
+        public IActionResult Add(IFormCollection form)
+        {
+            var response = new AjaxResponse();
+            try
             {
-                ModelState.AddModelError("test","Please fill all area.");
-                return View();
+                var theme = new Theme();
+                theme.Title = form["theme_title"];
+                theme.IsActive = (sbyte) ((form["theme_active_passive"]== "on") ? 1 : 0);
+                theme.Level = Enum.Parse<Levels>(form["Level"]);
+                theme.CreatedDate = DateTime.Now;
+                theme.Rank = byte.MinValue;
+                _db.Themes.Add(theme);
+                _db.SaveChanges();
+                response.Sonuc = true;
             }
+            catch (Exception e)
+            {
+                response.Sonuc = false;
+                response.Message = "something went wrong !";
+                response.DetailMessage = e.InnerException.Message;
+            }
+
+            return Json(response);
         }
 
         [HttpPost]
@@ -91,11 +124,11 @@ namespace LearnEnglish.Controllers
             try
             {
                 _db.SaveChanges();
-                response.Result = true;
+                response.Sonuc = true;
             }
             catch (Exception e)
             {
-                response.Result = false;
+                response.Sonuc = false;
                 response.Message = "Something went wrong !";
                 response.DetailMessage = e.InnerException.Message;
             }

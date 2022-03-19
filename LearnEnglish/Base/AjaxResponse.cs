@@ -7,7 +7,7 @@ namespace LearnEnglish.Base
 {
     public class AjaxResponse
     {
-        public bool Result { get; set; }
+        public bool Sonuc { get; set; }
         public object Data { get; set; }
         public string Message { get; set; }
         public string DetailMessage { get; set; }

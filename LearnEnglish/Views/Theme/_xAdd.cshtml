@@ -1,0 +1,120 @@
+﻿@using Microsoft.AspNetCore.Mvc.ModelBinding
+@using Microsoft.EntityFrameworkCore.Query.Internal
+@model LearnEnglish.ViewModels.ThemeViewModel
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Dashboard</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard v1</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+
+        <!-- Main row -->
+        <div class="row">
+            <div class="col-6">
+                <div class="text-danger">
+                    @*@Html.ValidationMessageFor(m => m.Title, string.Empty, new { @class = "text-danger" }) <br />*@
+                    @Html.ValidationMessage("test")
+                    @ViewData["levelbilgi"]
+                    @ViewBag.ThemeSaveResult
+                    @{
+                        if (ViewBag.ThemeSaveResult != null)
+                        {
+                            if (ViewBag.ThemeSaveResult == true)
+                            {
+                                <p class="text-success"> New theme successfully saved.</p>
+                            }
+                            else if (ViewBag.ThemeSaveResult == false)
+                            {
+                                <p class="text-danger"> Something went wrong !.</p>
+                            }
+                        }
+
+                    }
+
+                </div>
+               
+
+                @*@using (var form = Html.BeginForm("", "", FormMethod.Post,new {@id="form_theme_add",@name= "form_theme_add" }))*@
+                @using (var form = Html.BeginForm("Add", "Theme", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Title)
+                        @Html.TextBoxFor(m => m.Title, string.Empty, new { @class = "form-control", @placeholder = "Please Enter Theme Title" })
+                    </div>
+
+                    <div class="col-auto my-1">
+                        <div class="custom-control custom-checkbox mr-sm-2">
+
+                            @Html.CheckBoxFor(m => m.IsActive, new { @class = "custom-control-input", @id = "customControlAutosizing", @checked = "checked" })
+                            @Html.LabelFor(m => m.IsActive, new { @class = "custom-control-label", @for = "customControlAutosizing" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Level)
+                        @Html.DropDownListFor(m => m.Level, new SelectList(Enum.GetValues(typeof(Levels))), "Select Level", new { @class = "form-control" })
+
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Add">
+                    </div>
+                }
+            </div>
+        </div>
+        <!-- /.row (main row) -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Responsive Hover Table</h3>
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                            <tr>
+                                <th>Level</th>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Rank</th>
+                                <th>Active/Passive State</th>
+                                <th>Created Date</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                           
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
