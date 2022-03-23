@@ -157,10 +157,10 @@ namespace LearnEnglish.Controllers
         public IActionResult IsActiveStateChange(int themeId, int isActive)
         {
             var ajaxResponse = new AjaxResponse();
+            var theme = _db.Themes.Where(t => t.ThemeId == themeId).SingleOrDefault();
+
             try
             {
-                var theme = new Theme();
-                theme.ThemeId = themeId;
                 theme.IsActive = (sbyte)isActive;
                 _db.Themes.Update(theme);
                 _db.SaveChanges();
