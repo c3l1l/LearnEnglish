@@ -1,4 +1,5 @@
 ﻿@model List<LearnEnglish.Models.Theme>
+
 <!-- Content Header (Page header) -->
 <div class="content-header">
     <div class="container-fluid">
@@ -23,14 +24,14 @@
         <!-- Main row -->
         <div class="row">
             <div class="col">
-               
+
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Theme List</h3>
-                        
+
                         <div class="card-tools">
                             <div class="input-group input-group-sm float-left " style="width: 150px;">
-                                
+
                                 <a class="btn btn-primary" asp-controller="Theme" asp-action="Add">Add</a>
                             </div>
                             <div class="input-group input-group-sm " style="width: 150px;">
@@ -45,38 +46,40 @@
                     </div>
 
                     <div class="card-body table-responsive p-0">
-                        <table class="table table-hover text-nowrap">
+                        <table class="table table-hover text-nowrap" id="theme_list">
                             <thead>
-                            <tr>
-                                <th>Level</th>
-                                <th>ID</th>
-                                <th>Title</th>
-                                <th>Rank</th>
-                                <th>Active/Passive State</th>
-                                <th>Created Date</th>
-                                <th></th>
-                                
-                            </tr>
+                                <tr>
+                                    <th>Level</th>
+                                    <th>ID</th>
+                                    <th>Title</th>
+                                    <th>Rank</th>
+                                    <th>Active/Passive State</th>
+                                    <th>Created Date</th>
+                                    <th></th>
+
+                                </tr>
                             </thead>
                             <tbody>
                                 @foreach (var theme in Model)
                                 {
-                                <tr>
-                                    <td class="text-success font-weight-bold">@Html.DisplayFor(t=>theme.Level)</td>
-                                    <td>@Html.DisplayFor(t=>theme.ThemeId)</td>
-                                    <td>@Html.DisplayFor(t=>theme.Title)</td>
-                                    <td>@Html.DisplayFor(t=>theme.Rank)</td>
-                                    <td>@Html.DisplayFor(t=>theme.IsActive)</td>
-                                    <td>@theme.CreatedDate.ToShortDateString()</td>
-                                    <td>
-                                        <a class="btn btn-success" asp-controller="Theme" asp-action="Edit" asp-route-id="1">Edit</a>
-                                        <button type="button" class="btn btn-danger" onclick="ThemeDelete(@theme.ThemeId)">
-                                            <i class="fa fa-sm fa-trash-alt"></i> Delete
-                                        </button>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td class="text-success font-weight-bold">@Html.DisplayFor(t => theme.Level)</td>
+                                        <td>@Html.DisplayFor(t => theme.ThemeId)</td>
+                                        <td>@Html.DisplayFor(t => theme.Title)</td>
+                                        <td>@Html.DisplayFor(t => theme.Rank)</td>
+                                        <td>
+                                        <input id="@theme.ThemeId" class="form_is_active_change" type="checkbox"  @((theme.IsActive==1)?"checked":"") data-toggle="toggle" data-onstyle="info" data-on="Active" data-off="Passive">
+                                         </td>
+                                        <td>@theme.CreatedDate.ToShortDateString()</td>
+                                        <td>
+                                            <a class="btn btn-success" asp-controller="Theme" asp-action="Edit" asp-route-id="1">Edit</a>
+                                            <button type="button" class="btn btn-danger" onclick="ThemeDeleteConfirm(@theme.ThemeId)">
+                                                <i class="fa fa-sm fa-trash-alt"></i> Delete
+                                            </button>
+                                        </td>
+                                    </tr>
                                 }
-                               
+
                             </tbody>
                         </table>
                     </div>
@@ -87,6 +90,13 @@
     </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->
+
+@section PageStyles{
+    <link href="~/adminlte/plugins/sweetalert2/sweetalert2.css" rel="stylesheet" />
+    <link href="~/adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.css" rel="stylesheet" />
+}
+
 @section PageScripts{
     <script src="~/js/pages/theme.js" asp-append-version="true"></script>
+    <script src="~/adminlte/plugins/sweetalert2/sweetalert2.js"></script>
 }

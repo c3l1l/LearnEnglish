@@ -85,9 +85,8 @@ namespace LearnEnglish.Controllers
         [HttpPost]
         public IActionResult Add(IFormCollection form)
         {
-            var response = new AjaxResponse();
-            try
-            {
+            var ajaxResponse = new AjaxResponse();
+            try {
                 var theme = new Theme();
                 theme.Title = form["theme_title"];
                 theme.IsActive = (sbyte) ((form["theme_active_passive"]== "on") ? 1 : 0);
@@ -96,16 +95,18 @@ namespace LearnEnglish.Controllers
                 theme.Rank = byte.MinValue;
                 _db.Themes.Add(theme);
                 _db.SaveChanges();
-                response.Sonuc = true;
-            }
+                ajaxResponse.Result = true;
+
+                ajaxResponse.Message = "Theme added successfully";
+           }
             catch (Exception e)
             {
-                response.Sonuc = false;
-                response.Message = "something went wrong !";
-                response.DetailMessage = e.InnerException.Message;
+                ajaxResponse.Result = false;
+                ajaxResponse.Message = "something went wrong !";
+                ajaxResponse.DetailMessage = e.InnerException.Message;
             }
 
-            return Json(response);
+            return Json(ajaxResponse);
         }
 
         [HttpPost]
@@ -122,22 +123,59 @@ namespace LearnEnglish.Controllers
             var theme = _db.Themes.Where(t => t.ThemeId == themeId).SingleOrDefault();
             _db.Themes.Remove(theme);
             try
-            {
+            {  
                 _db.SaveChanges();
-                response.Sonuc = true;
+                response.Result = true;
+                response.Message = "Theme has been deleted.";
             }
             catch (Exception e)
             {
-                response.Sonuc = false;
+                response.Result = false;
                 response.Message = "Something went wrong !";
                 response.DetailMessage = e.InnerException.Message;
             }
             return Json(response);
         }
 
-      
-      
+        public IActionResult GetTheme()
+        {
+            var ajaxResponse = new AjaxResponse();
+            ajaxResponse.Data = _db.Themes.ToList();
+            try
+            {
+                ajaxResponse.Data = _db.Themes.ToList();
+                ajaxResponse.Result = true;
+            }
+            catch (Exception e)
+            {
+                ajaxResponse.Result = false;
+                ajaxResponse.Message = "Something went wrong !!";
+            }
+            return Json(ajaxResponse);
+        }
 
-      
+        public IActionResult IsActiveStateChange(int themeId, int isActive)
+        {
+            var ajaxResponse = new AjaxResponse();
+            try
+            {
+                var theme = new Theme();
+                theme.ThemeId = themeId;
+                theme.IsActive = (sbyte)isActive;
+                _db.Themes.Update(theme);
+                _db.SaveChanges();
+                ajaxResponse.Result = true;
+                var themeState = (isActive == 1) ? "Active":"Passive";
+                ajaxResponse.Message = "Theme state changed as "+ themeState;
+            }
+            catch (Exception e)
+            {
+                ajaxResponse.Result = false;
+                ajaxResponse.Message = "something went wrong !";
+                ajaxResponse.DetailMessage = e.InnerException.Message;
+            }
+
+            return Json(ajaxResponse);
+        }
     }
 }

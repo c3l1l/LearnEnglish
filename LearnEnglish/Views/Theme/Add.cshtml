@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Mvc.ModelBinding
 @using Microsoft.EntityFrameworkCore.Query.Internal
 @model LearnEnglish.ViewModels.ThemeViewModel
+
 <!-- Content Header (Page header) -->
 <div class="content-header">
     <div class="container-fluid">
@@ -13,6 +14,7 @@
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard v1</li>
+
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -45,7 +47,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                @Html.LabelFor(m => m.Level,"Level",new { @class="col-sm-2 col-form-label"})
+                                @Html.LabelFor(m => m.Level, "Level", new { @class = "col-sm-2 col-form-label" })
                                 <div class="col-sm-10">
 
                                     @Html.DropDownListFor(m => m.Level, new SelectList(Enum.GetValues(typeof(Levels))), "Select Level", new { @class = "form-control" })
@@ -54,6 +56,8 @@
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary float-right">Add</button>
+
+
                         </div>
                     </form>
                 </div>
@@ -62,7 +66,7 @@
         <!-- /.row (main row) -->
         <div class="row">
             <div class="col-12">
-                <div class="card">
+                <div class="card" id="theme_card">
                     <div class="card-header">
                         <h3 class="card-title">Responsive Hover Table</h3>
                         <div class="card-tools">
@@ -78,7 +82,7 @@
                     </div>
 
                     <div class="card-body table-responsive p-0">
-                        <table class="table table-hover text-nowrap">
+                        <table class="table table-hover text-nowrap" id="theme_list">
                             <thead>
                                 <tr>
                                     <th>Level</th>
@@ -102,6 +106,16 @@
     </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->
+
+@section PageStyles{
+    <link href="~/adminlte/plugins/sweetalert2/sweetalert2.css" rel="stylesheet" />
+    <link href="~/adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.css" rel="stylesheet" />
+}
 @section PageScripts{
     <script src="~/js/pages/theme.js" asp-append-version="true"></script>
+    <script src="~/adminlte/plugins/sweetalert2/sweetalert2.js"></script>
+    <script src="~/adminlte/plugins/jquery-validation/jquery.validate.js"></script>
+    <script>
+        $('#theme_card').hide();
+    </script>
 }
