@@ -12,5 +12,6 @@ namespace LearnEnglish.Base
         public object Data { get; set; }
         public string Message { get; set; }
         public string DetailMessage { get; set; }
+        public List<string> LevelStringList  { get; set; }
     }
 }

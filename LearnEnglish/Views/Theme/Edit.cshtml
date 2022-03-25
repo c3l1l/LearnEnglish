@@ -1,6 +1,87 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using Microsoft.AspNetCore.Mvc.ModelBinding
+@using Microsoft.EntityFrameworkCore.Query.Internal
+@model LearnEnglish.Models.Theme
 
-@ViewData["id"] <br/>
-edit sayfasi
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Dashboard</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard v1</li>
+
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+
+        <!-- Main row -->
+        <div class="row">
+            <div class="col-6">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Update Theme Panel</h3>
+                    </div>
+                    <form class="form-horizontal" id="form_theme_edit" name="form_theme_edit">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Theme Id: </label>
+                                <div class="col-sm-10">
+                                    <span id="theme_theme_id" class="form-control" value="@Model.ThemeId">@Model.ThemeId</span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="theme_title" class="col-sm-2 col-form-label">Theme Title</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="theme_title" name="theme_title" placeholder="Theme Title" value="@if (Model != null){@Model.Title}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="theme_active_passive" name="theme_active_passive" />
+                                    <label class="custom-control-label" for="theme_active_passive">Active/Passive</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                @Html.LabelFor(m => m.Level, "Level", new {@class = "col-sm-2 col-form-label"})
+                                <div class="col-sm-10">
+                                    @Html.DropDownListFor(m => m.Level, new SelectList(Enum.GetValues(typeof(Levels))), "Select Level", new {@class = "form-control"})
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary float-right" onclick="$('#form_theme_edit').submit()">Update</button>
+
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /.row (main row) -->
+        
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+@section PageStyles{
+    <link href="~/adminlte/plugins/sweetalert2/sweetalert2.css" rel="stylesheet" />
+    <link href="~/adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.css" rel="stylesheet" />
+}
+@section PageScripts{
+    <script src="~/js/pages/theme.js" asp-append-version="true"></script>
+    <script src="~/adminlte/plugins/sweetalert2/sweetalert2.js"></script>
+    <script src="~/adminlte/plugins/jquery-validation/jquery.validate.js"></script>
+    <script>
+        $('#theme_card').hide();
+    </script>
+}

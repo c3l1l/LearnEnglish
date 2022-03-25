@@ -9,10 +9,12 @@ namespace LearnEnglish.ViewModels
 {
     public class ThemeViewModel
     {
+        public int ThemeId { get; set; }
+
         [Required(ErrorMessage = "Title is required.")]
         public string Title { get; set; }
-        public bool IsActive { get; set; }
+        public sbyte IsActive { get; set; }
         [Required(ErrorMessage = "Please select a level.")]
-        public Levels Level { get; set; }
+        public string Level { get; set; }
     }
 }

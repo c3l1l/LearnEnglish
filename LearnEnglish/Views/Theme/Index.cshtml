@@ -72,7 +72,7 @@
                                          </td>
                                         <td>@theme.CreatedDate.ToShortDateString()</td>
                                         <td>
-                                            <a class="btn btn-success" asp-controller="Theme" asp-action="Edit" asp-route-id="1">Edit</a>
+                                            <a class="btn btn-success" asp-controller="Theme" asp-action="Details" asp-route-id="@theme.ThemeId">Edit</a>
                                             <button type="button" class="btn btn-danger" onclick="ThemeDeleteConfirm(@theme.ThemeId)">
                                                 <i class="fa fa-sm fa-trash-alt"></i> Delete
                                             </button>

@@ -35,6 +35,39 @@ $(function ()
             ThemeAdd();
         }
     });
+    $("#form_theme_edit").validate({
+        rules: {
+            theme_title: {
+                required: true
+            },
+            Level: {
+                required: true
+            }
+        },
+        messages: {
+            theme_title: {
+                required: "Theme title is required..."
+            },
+            Level: {
+                required: "Please select a Level..."
+            }
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        },
+
+        submitHandler: function (form) {
+            ThemeEdit();
+        }
+    });
     $(document).on("change",".form_is_active_change",function () {
         if ($(this).prop("checked")) {
             IsActiveStateChange($(this).attr("id"),1);
@@ -101,7 +134,6 @@ function ThemeDelete(themeId) {
 function ThemeAdd(parameters) {
     BlockPage();
     var formData = $('#form_theme_add').serialize();
-
     $.ajax({
         type: 'POST',
         url: '/Theme/Add',
@@ -129,6 +161,51 @@ function ThemeAdd(parameters) {
         }
     });
 }
+
+function ThemeEdit() {
+    BlockPage();
+    var themeId = $('#theme_theme_id').text();
+   // var isActive = ($('#theme_active_passive').val()==="on"?1:0);
+    var isActive = $('#theme_active_passive').val();
+    alert(isActive);
+    var data = {
+        "ThemeId": themeId,
+        "Title": $('#theme_title').val(),
+        "IsActive": isActive,
+        "Level": $('#Level').val()
+    };
+    
+    $.ajax({
+        type: 'POST',
+        url: '/Theme/Edit',
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data: data,
+        dataType: 'json',
+        success: function (response) {
+
+            if (response.result) {
+                toastr.success(response.message);
+                $('#theme_card').show();
+                response.Message = "Theme added successfully";
+               
+            }
+            else {
+                toastr.error(response.message);
+             
+                
+            }
+        },
+        error: function (request, status, error) {
+            alert(request + status + error);
+        },
+        complete: function () {
+            UnBlockPage();
+            return false;
+        }
+    });
+   
+}
+
 function ThemeGet() {
     $('#theme_list tbody').html('');
 
@@ -144,20 +221,20 @@ function ThemeGet() {
             if (response.result) {
                 var themeRowCount = response.data.length;
                 if (themeRowCount == 0) {
-                    $('#theme_list tbody').append('Henuz bir kayit eklenmemis....');
+                    $('#theme_list tbody').append('No record has been added yet....');
                 }
                 else {
                     var themes = '';
                     $.each(response.data, function (index, row) {
                         var shortDate = ShortDate(row.createdDate);
-
-                        themes += '<tr><td>' + row.level
+                        
+                        themes += '<tr><td class="text-success font-weight-bold">' + response.levelStringList[row.level]//row.level
                             + '</td><td>' + row.themeId
                             + '</td><td>' + row.title
                             + '</td><td>' + row.rank
                             + '</td><td>' + '<input id="'+row.themeId+'" class="form_is_active_change" type="checkbox" data-onstyle="info" data-on="Active" data-off="Passive" '+((row.isActive===1)?"checked":"")+' >'
                             + '</td><td>' + shortDate
-                            + '</td><td>' + ' <a class="btn btn-success" asp-controller="Theme" asp-action="Edit" asp-route-id="' + row.themeId + '">Edit</a><button type = "button" class="btn btn-danger" onclick = "ThemeDeleteConfirm(' + row.themeId + ')" ><i class="fa fa-sm fa-trash-alt"></i> Delete</button >'
+                            + '</td><td>' + ' <a class="btn btn-success" href="/Theme/Details/'+row.themeId + '">Edit</a><button type = "button" class="btn btn-danger" onclick = "ThemeDeleteConfirm(' + row.themeId + ')" ><i class="fa fa-sm fa-trash-alt"></i> Delete</button >'
                             + '</td></tr>'
                     });
                     $('#theme_list tbody').append(themes);

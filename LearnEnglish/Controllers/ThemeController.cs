@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using LearnEnglish.Base;
 using LearnEnglish.Models;
 using LearnEnglish.ViewModels;
+
 
 
 namespace LearnEnglish.Controllers
@@ -27,10 +29,7 @@ namespace LearnEnglish.Controllers
         }
 
         // GET: ThemeController/Details/5
-        public IActionResult Details(int id)
-        {
-            return View();
-        }
+      
         
         public IActionResult Add()
         {
@@ -109,11 +108,40 @@ namespace LearnEnglish.Controllers
             return Json(ajaxResponse);
         }
 
-        [HttpPost]
-        public IActionResult Edit(int id)
+        [Route("Theme/Details/{id}")]
+        public IActionResult Details(string id)
         {
-            ViewData["id"] = id;
-            return View();
+            var ajaxResponse = new AjaxResponse();
+            var theme = _db.Themes.Where(t => t.ThemeId == (int.Parse(id))).SingleOrDefault();
+             
+
+              return View("Edit",theme);
+        }
+        [HttpPost]
+        public IActionResult Edit(ThemeViewModel model)
+        {
+            var ajaxResponse = new AjaxResponse();
+            
+            var theme = _db.Themes.Where(t => t.ThemeId == model.ThemeId).SingleOrDefault();
+            theme.Title = model.Title;
+            theme.Level = Enum.Parse<Levels>(model.Level);
+         //   theme.IsActive = (sbyte)((model.IsActive) ? 1 : 0);
+            theme.IsActive = (sbyte)(model.IsActive);
+            try
+            {
+                _db.SaveChanges();
+                ajaxResponse.Result = true;
+                ajaxResponse.Message = "Update successful ! ";
+
+            }
+            catch (Exception ex)
+            {
+                ajaxResponse.Message = "Something went wrong, Update failed ! ";
+                ajaxResponse.Result = false;
+                ajaxResponse.DetailMessage = ex.InnerException.Message;
+            }
+           
+            return Json(ajaxResponse);
         }
 
         [HttpPost]
@@ -140,11 +168,12 @@ namespace LearnEnglish.Controllers
         public IActionResult GetTheme()
         {
             var ajaxResponse = new AjaxResponse();
-            ajaxResponse.Data = _db.Themes.ToList();
+            //ajaxResponse.Data = _db.Themes.ToList();
             try
             {
                 ajaxResponse.Data = _db.Themes.ToList();
                 ajaxResponse.Result = true;
+                ajaxResponse.LevelStringList= GetLevelString();
             }
             catch (Exception e)
             {
@@ -176,6 +205,17 @@ namespace LearnEnglish.Controllers
             }
 
             return Json(ajaxResponse);
+        }
+       
+        public List<string> GetLevelString()
+        {
+            var levelStringList = new List<string>();
+            foreach (Levels enumVals in Enum.GetValues(typeof(Levels)))
+            {
+                levelStringList.Add(enumVals.ToString());
+                //  System.Diagnostics.Debug.WriteLine("enum value" + " " + enumVals);
+            }
+            return levelStringList;
         }
     }
 }
