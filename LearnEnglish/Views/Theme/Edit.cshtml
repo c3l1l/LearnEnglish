@@ -1,7 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Mvc.ModelBinding
 @using Microsoft.EntityFrameworkCore.Query.Internal
 @model LearnEnglish.Models.Theme
-
 <!-- Content Header (Page header) -->
 <div class="content-header">
     <div class="container-fluid">
@@ -46,15 +45,15 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="theme_active_passive" name="theme_active_passive" />
-                                    <label class="custom-control-label" for="theme_active_passive">Active/Passive</label>
+                                <label class="col-sm-2 col-form-label" for="theme_active_passive">Theme State</label>
+                                <div class="col-sm-10">
+                                    <input id="theme_active_passive" name="theme_active_passive" type="checkbox" @((Model.IsActive == 1) ? "checked" : "") data-toggle="toggle" data-onstyle="info" data-on="Active" data-off="Passive">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                @Html.LabelFor(m => m.Level, "Level", new {@class = "col-sm-2 col-form-label"})
+                                @Html.LabelFor(m => m.Level, "Level", new { @class = "col-sm-2 col-form-label" })
                                 <div class="col-sm-10">
-                                    @Html.DropDownListFor(m => m.Level, new SelectList(Enum.GetValues(typeof(Levels))), "Select Level", new {@class = "form-control"})
+                                    @Html.DropDownListFor(m => m.Level, new SelectList(Enum.GetValues(typeof(Levels))), "Select Level", new { @class = "form-control" })
                                 </div>
                             </div>
                         </div>
@@ -68,7 +67,7 @@
             </div>
         </div>
         <!-- /.row (main row) -->
-        
+
     </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->

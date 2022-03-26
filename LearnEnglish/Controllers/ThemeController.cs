@@ -28,9 +28,6 @@ namespace LearnEnglish.Controllers
             return View(test);
         }
 
-        // GET: ThemeController/Details/5
-      
-        
         public IActionResult Add()
         {
             ViewBag.ThemeSaveResult = null;
@@ -85,7 +82,9 @@ namespace LearnEnglish.Controllers
         public IActionResult Add(IFormCollection form)
         {
             var ajaxResponse = new AjaxResponse();
-            try {
+           
+            try
+            {
                 var theme = new Theme();
                 theme.Title = form["theme_title"];
                 theme.IsActive = (sbyte) ((form["theme_active_passive"]== "on") ? 1 : 0);
@@ -125,7 +124,6 @@ namespace LearnEnglish.Controllers
             var theme = _db.Themes.Where(t => t.ThemeId == model.ThemeId).SingleOrDefault();
             theme.Title = model.Title;
             theme.Level = Enum.Parse<Levels>(model.Level);
-         //   theme.IsActive = (sbyte)((model.IsActive) ? 1 : 0);
             theme.IsActive = (sbyte)(model.IsActive);
             try
             {
