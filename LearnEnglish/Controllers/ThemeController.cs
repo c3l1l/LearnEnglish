@@ -204,7 +204,8 @@ namespace LearnEnglish.Controllers
 
             return Json(ajaxResponse);
         }
-       
+
+        //GetLevelString method uses to getting string Enum values
         public List<string> GetLevelString()
         {
             var levelStringList = new List<string>();
@@ -214,6 +215,24 @@ namespace LearnEnglish.Controllers
                 //  System.Diagnostics.Debug.WriteLine("enum value" + " " + enumVals);
             }
             return levelStringList;
+        }
+
+        [HttpPost]
+        public IActionResult Search(string searchString)
+        {
+            var ajaxResponse = new AjaxResponse();
+            try
+            {
+                ajaxResponse.Data = _db.Themes.Where(t=>t.Title.Contains(searchString)).ToList();
+                ajaxResponse.Result = true;
+                ajaxResponse.LevelStringList = GetLevelString();
+            }
+            catch (Exception e)
+            {
+                ajaxResponse.Result = false;
+                ajaxResponse.Message = "Something went wrong !!";
+            }
+            return Json(ajaxResponse);
         }
     }
 }

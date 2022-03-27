@@ -1,6 +1,13 @@
 ﻿
    // var form_theme_add = null;
-    $(function (){
+
+   $(function () {
+       $('#form_theme_search').submit(function (event) {
+           
+               event.preventDefault();
+              ThemeSearch();
+               return false;
+           });
          $("#form_theme_add").validate({
             rules: {
                 theme_title: {
@@ -75,7 +82,62 @@
             }
          });
     });
+    function ThemeSearch() {
 
+        var searchString = $("#theme_name").val();
+        
+        if (searchString != "") {
+            var data = { "searchString": searchString }
+            $.ajax({
+                type: 'POST',
+                url: '/Theme/Search',
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                data: data,
+                dataType: 'json',
+                success: function (response) {
+                    if (response.result) {
+                        $('#theme_list tbody').html('');
+                        $('#theme_list tbody').append();
+
+                        var themeRowCount = response.data.length;
+                        if (themeRowCount == 0) {
+                           
+                            $('#theme_list tbody').append('Record not found !');
+                            $("#theme_list").css("border", "3px solid red");
+                        }
+                        else {
+                            var themes = '';
+                            $.each(response.data, function (index, row) {
+                                var shortDate = ShortDate(row.createdDate);
+
+                                themes += '<tr><td class="text-success font-weight-bold">' + response.levelStringList[row.level]//row.level
+                                    + '</td><td>' + row.themeId
+                                    + '</td><td>' + row.title
+                                    + '</td><td>' + row.rank
+                                    + '</td><td>' + '<input id="' + row.themeId + '" class="form_is_active_change" type="checkbox" data-size="sm" data-onstyle="info" data-on="Active" data-off="Passive" ' + ((row.isActive === 1) ? "checked" : "") + ' >'
+                                    + '</td><td>' + shortDate
+                                    + '</td><td>' + ' <a class="btn btn-success" href="/Theme/Details/' + row.themeId + '">Edit</a> <button type = "button" class="btn btn-danger" onclick = "ThemeDeleteConfirm(' + row.themeId + ')" ><i class="fa fa-sm fa-trash-alt"></i> Delete</button >'
+                                    + '</td></tr>'
+                            });
+                            $('#theme_list tbody').append(themes);
+                            $("#theme_list").css("border", "");
+                        }
+                    }
+                },
+                error: function (request, status, error) {
+                },
+                complete: function () {
+                    ToggleAdd();
+                    return false;
+                }
+            });
+        }
+        else {
+            $("#theme_name").css("border", "3px solid red");
+            $("#theme_name").attr("placeholder", "Enter a theme name !");
+            ThemeGet();
+        }
+    }
     function ThemeDeleteConfirm(themeId) {
         var message = themeId;
         Swal.fire({
