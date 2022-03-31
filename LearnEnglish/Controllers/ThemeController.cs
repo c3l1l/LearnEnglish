@@ -20,12 +20,14 @@ namespace LearnEnglish.Controllers
         public ThemeController(LearnEnglishContext db)
         {
             _db = db;
+            //_db.Database.EnsureDeleted(); 
+            //_db.Database.EnsureCreated();
         }
         // GET: ThemeController
         public IActionResult Index()
         {
-            var test = _db.Themes.ToList();
-            return View(test);
+            var themes = _db.Themes.ToList();
+            return View(themes);
         }
 
         public IActionResult Add()

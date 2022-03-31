@@ -1,0 +1,113 @@
+﻿
+@model LearnEnglish.Models.Section
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Dashboard</h1>
+              
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard v1</li>
+
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- Main row -->
+        <div class="row">
+            <div class="col-6">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Add Section Panel</h3>
+                    </div>
+                    <form class="form-horizontal" id="form_section_add" name="form_section_add">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="section_title" class="col-sm-2 col-form-label">Section Title</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="section_title" name="section_title" placeholder="Section Title">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="section_title" class="col-sm-2 col-form-label">Select Theme</label>
+                                <div class="col-sm-10">
+                                    <select asp-for=ThemeId asp-items=@ViewBag.Themes class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary float-right">Add</button>
+
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /.row (main row) -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card" id="theme_card">
+                    <div class="card-header">
+                        <h3 class="card-title">Responsive Hover Table</h3>
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover text-nowrap" id="theme_list">
+                            <thead>
+                                <tr>
+                                    <th>Level</th>
+                                    <th>ID</th>
+                                    <th>Title</th>
+                                    <th>Rank</th>
+                                    <th>Active/Passive State</th>
+                                    <th>Created Date</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+@section PageStyles{
+    <link href="~/adminlte/plugins/sweetalert2/sweetalert2.css" rel="stylesheet" />
+    <link href="~/adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.css" rel="stylesheet" />
+}
+@section PageScripts{
+    <script src="~/js/pages/theme.js" asp-append-version="true"></script>
+    <script src="~/adminlte/plugins/sweetalert2/sweetalert2.js"></script>
+    <script src="~/adminlte/plugins/jquery-validation/jquery.validate.js"></script>
+    <script>
+        $('#theme_card').hide();
+    </script>
+}

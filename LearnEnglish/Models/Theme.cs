@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -13,7 +14,9 @@ namespace LearnEnglish.Models
         {
             Sections = new List<Section>();
         }
+        
         public int ThemeId { get; set; }
+       // [DisplayName("Theme Name")]
         public string Title { get; set; }
         public byte Rank { get; set; }
         public sbyte IsActive  { get; set; }

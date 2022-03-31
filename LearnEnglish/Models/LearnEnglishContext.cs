@@ -53,7 +53,9 @@ namespace LearnEnglish.Models
                 SectionId = 1,
                 Title = "1A",
                 CreatedDate = DateTime.Now,
-                Rank = 0
+                Rank = 0,
+                ThemeId=1
+              
 
             });
             modelBuilder.Entity<Category>().HasData(
