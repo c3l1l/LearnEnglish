@@ -47,7 +47,7 @@
                         <table class="table table-hover text-nowrap" id="section_list">
                             <thead>
                                 <tr>
-                                    <th>@Html.DisplayNameFor(m=>m.SingleOrDefault().Theme.Title)</th>
+                                    <th>@Html.DisplayNameFor(m => m.SingleOrDefault().Theme.Title)</th>
                                     <th>@Html.DisplayNameFor(m => m.SingleOrDefault().SectionId)</th>
                                     <th>@Html.DisplayNameFor(m => m.SingleOrDefault().Title)</th>
                                     <th>@Html.DisplayNameFor(m => m.SingleOrDefault().Rank)</th>
@@ -57,23 +57,23 @@
                             </thead>
                             <tbody>
                                 @foreach (var section in Model)
-                                    {
-                                        <tr>
-                                            <td class="text-success font-weight-bold">@Html.DisplayFor(t => section.Theme.Title)</td>
-                                            <td>@Html.DisplayFor(t => section.SectionId)</td>
-                                            <td>@Html.DisplayFor(t => section.Title)</td>
-                                            <td>@Html.DisplayFor(t => section.Rank)</td>
-                                            
-                                            <td>  @(section.CreatedDate.ToShortDateString())</td>
-                                            <td>
-                                               
-                                                @*<a class="btn btn-success" asp-controller="Theme" asp-action="Details" asp-route-id="@section.SectionId">Edit</a>
-        <button type="button" class="btn btn-danger" onclick="SectionDeleteConfirm(@section.SectionId)">
-            <i class="fa fa-sm fa-trash-alt"></i> Delete
-        </button>*@
-                                            </td>
-                                        </tr>
-                                    }
+                                {
+                                    <tr>
+                                        <td class="text-success font-weight-bold">@Html.DisplayFor(t => section.Theme.Title)</td>
+                                        <td>@Html.DisplayFor(t => section.SectionId)</td>
+                                        <td>@Html.DisplayFor(t => section.Title)</td>
+                                        <td>@Html.DisplayFor(t => section.Rank)</td>
+
+                                        <td>  @(section.CreatedDate.ToShortDateString())</td>
+                                        <td>
+
+                                            <a class="btn btn-success" asp-controller="Section" asp-action="Details" asp-route-id="@(section.SectionId)">Edit</a>
+                                            <button type="button" class="btn btn-danger" onclick="SectionDeleteConfirm(@(section.SectionId))">
+                                                <i class="fa fa-sm fa-trash-alt"></i> Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
 
                             </tbody>
                         </table>
