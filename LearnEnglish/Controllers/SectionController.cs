@@ -95,8 +95,8 @@ namespace LearnEnglish.Controllers
         public IActionResult Details(string id)
         {
             var ajaxResponse = new AjaxResponse();
-            var section = _db.Sections.Where(s => s.SectionId == (int.Parse(id))).SingleOrDefault();
-            SectionViewModel sectionViewModel = new SectionViewModel{ ThemeId = section.ThemeId, Title = section.Title};
+            Section section = _db.Sections.Where(s => s.SectionId == (int.Parse(id))).SingleOrDefault();
+            SectionViewModel sectionViewModel = new SectionViewModel{ ThemeId = section.ThemeId, Title = section.Title, SectionId = section.SectionId};
            
             ViewBag.Themes = new SelectList(_db.Themes, "ThemeId", "Title");
             return View("Edit",sectionViewModel);
@@ -104,9 +104,77 @@ namespace LearnEnglish.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Section model)
+        public IActionResult Edit(SectionViewModel Model)
         {
-            return View();
+            var ajaxResponse = new AjaxResponse();
+
+            var section = _db.Sections.Where(s => s.SectionId == Model.SectionId).SingleOrDefault();
+            section.Title = Model.Title;
+            section.ThemeId = Model.ThemeId;
+
+            try
+            {
+                _db.SaveChanges();
+                ajaxResponse.Result = true;
+                ajaxResponse.Message = "Update successful ! ";
+
+            }
+            catch (Exception ex)
+            {
+                ajaxResponse.Message = "Something went wrong, Update failed ! ";
+                ajaxResponse.Result = false;
+                ajaxResponse.DetailMessage = ex.InnerException.Message;
+            }
+
+            return Json(ajaxResponse);
+        }
+        [HttpPost]
+        public IActionResult Delete(int SectionId)
+        {
+            var response = new AjaxResponse();
+            var section = _db.Sections.Where(s => s.SectionId == SectionId).SingleOrDefault();
+            _db.Sections.Remove(section);
+            try
+            {
+                _db.SaveChanges();
+                response.Result = true;
+                response.Message = "Section has been deleted.";
+            }
+            catch (Exception e)
+            {
+                response.Result = false;
+                response.Message = "Something went wrong !";
+                response.DetailMessage = e.InnerException.Message;
+            }
+            return Json(response);
+        }
+        [HttpPost]
+        public IActionResult Search(string searchString)
+        {
+            var ajaxResponse = new AjaxResponse();
+            try
+            {
+                var sections = from s in _db.Sections
+                    join t in _db.Themes
+                        on s.ThemeId equals t.ThemeId
+                    select new
+                    {
+                        ThemeTitle = t.Title,
+                        SectionId = s.SectionId,
+                        Title = s.Title,
+                        Rank = s.Rank,
+                        CreatedDate = s.CreatedDate
+                    };
+                ajaxResponse.Data = sections.Where(s=>s.Title.Contains(searchString)).ToList();
+              //  ajaxResponse.Data = _db.Sections.Include("Theme").Where(s => s.Title.Contains(searchString)).ToList();
+                ajaxResponse.Result = true;
+            }
+            catch (Exception e)
+            {
+                ajaxResponse.Result = false;
+                ajaxResponse.Message = "Something went wrong !!";
+            }
+            return Json(ajaxResponse);
         }
     }
 }

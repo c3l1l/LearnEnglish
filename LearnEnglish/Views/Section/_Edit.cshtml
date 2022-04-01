@@ -1,4 +1,5 @@
-﻿@model LearnEnglish.ViewModels.SectionViewModel
+﻿
+@model LearnEnglish.ViewModels.SectionViewModel
 <!-- Content Header (Page header) -->
 <div class="content-header">
     <div class="container-fluid">
@@ -10,6 +11,8 @@
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard v1</li>
+                    
+                    @Model.Title
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -26,15 +29,15 @@
                 <div class="card card-primary">
                     <div class="card-header">
                         <h3 class="card-title">Update Section Panel</h3>
-
+                       
                     </div>
                     <form asp-action="Edit" asp-controller="Section" method="post" id="form_section_edit">
                         <div class="card-body">
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Section Id: </label>
                                 <div class="col-sm-10">
-                                    @*<span id="section_section_id" class="form-control" value="@Model.SectionId">@Model.SectionId</span>*@
-                                    <span id="section_section_id" class="form-control" value="@Model.SectionId">@Model.SectionId</span>
+                                    @*<span id="section_section_id"  class="form-control" value="@Model.SectionId">@Model.SectionId</span>*@
+                                    <span id="section_section_id"  class="form-control" >xx</span>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -53,7 +56,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary float-right" onclick="SectionEdit()" >Update</button>
+                            <button type="submit" class="btn btn-primary float-right" onclick="$('#form_section_edit').submit()">Update</button>
                         </div>
                     </form>
                 </div>
@@ -64,15 +67,16 @@
     </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->
+
 @section PageStyles{
-<link href="~/adminlte/plugins/sweetalert2/sweetalert2.css" rel="stylesheet" />
-<link href="~/adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.css" rel="stylesheet" />
+    <link href="~/adminlte/plugins/sweetalert2/sweetalert2.css" rel="stylesheet" />
+    <link href="~/adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.css" rel="stylesheet" />
 }
 @section PageScripts{
-<script src="~/js/pages/section.js" asp-append-version="true"></script>
-<script src="~/adminlte/plugins/sweetalert2/sweetalert2.js"></script>
-<script src="~/adminlte/plugins/jquery-validation/jquery.validate.js"></script>
-<script>
+    <script src="~/js/pages/theme.js" asp-append-version="true"></script>
+    <script src="~/adminlte/plugins/sweetalert2/sweetalert2.js"></script>
+    <script src="~/adminlte/plugins/jquery-validation/jquery.validate.js"></script>
+    <script>
         $('#theme_card').hide();
-</script>
+    </script>
 }

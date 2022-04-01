@@ -119,14 +119,14 @@ namespace LearnEnglish.Controllers
               return View("Edit",theme);
         }
         [HttpPost]
-        public IActionResult Edit(ThemeViewModel model)
+        public IActionResult Edit(ThemeViewModel Model)
         {
             var ajaxResponse = new AjaxResponse();
             
-            var theme = _db.Themes.Where(t => t.ThemeId == model.ThemeId).SingleOrDefault();
-            theme.Title = model.Title;
-            theme.Level = Enum.Parse<Levels>(model.Level);
-            theme.IsActive = (sbyte)(model.IsActive);
+            var theme = _db.Themes.Where(t => t.ThemeId == Model.ThemeId).SingleOrDefault();
+            theme.Title = Model.Title;
+            theme.Level = Enum.Parse<Levels>(Model.Level);
+            theme.IsActive = (sbyte)(Model.IsActive);
             try
             {
                 _db.SaveChanges();
