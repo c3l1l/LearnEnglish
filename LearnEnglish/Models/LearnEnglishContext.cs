@@ -65,7 +65,8 @@ namespace LearnEnglish.Models
                     CategoryType = CategoryType.GrammarTips,
                     CreatedDate = DateTime.Now,
                     Name = "Grammar Tips _1",
-                    Rank = 0
+                    Rank = 0,
+                    SectionId = 1
                 });
 
             modelBuilder.Entity<Content>().HasData(

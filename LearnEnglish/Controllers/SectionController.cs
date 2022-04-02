@@ -19,6 +19,8 @@ namespace LearnEnglish.Controllers
         public SectionController(LearnEnglishContext db)
         {
             _db = db;
+            //_db.Database.EnsureDeleted();
+            //_db.Database.EnsureCreated();
         }
         public IActionResult Index()
         {

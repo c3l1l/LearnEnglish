@@ -9,14 +9,22 @@ namespace LearnEnglish.Models
 {
     public class Category
     {
+        [Display(Name = "ID")]
         public int CategoryId { get; set; }
+        [Display(Name = "Category Name")]
         public string Name { get; set; }
+
+        [Display(Name = "Category Order")]
         public byte Rank { get; set; }
+        [Display(Name = "Create Date")]
         public DateTime CreatedDate { get; set; }
 
         [Column(TypeName = "VARCHAR"), MaxLength(20)]
+        [Display(Name = "Category Type")]
         public CategoryType CategoryType { get; set; }
-
+        [ForeignKey("Section")]
+        public int SectionId { get; set; }
+        public Section Section { get; set; }
         public List<Content> Contents { get; set; }
 
     }
