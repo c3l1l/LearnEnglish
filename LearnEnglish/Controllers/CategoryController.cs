@@ -29,6 +29,7 @@ namespace LearnEnglish.Controllers
             ViewBag.Sections = new SelectList(_db.Sections, "SectionId", "Title");
             return View();
         }
+        
 
         [HttpPost]
         public IActionResult Add(CategoryViewModel Model)

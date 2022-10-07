@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LearnEnglish.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LearnEnglish
 {
@@ -23,9 +24,9 @@ namespace LearnEnglish
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<LearnEnglishContext>();
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<LearnEnglishContext>(o=>o.UseSqlServer(connectionString));
             services.AddControllersWithViews();
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

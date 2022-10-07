@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LearnEnglish.Migrations
 {
-    public partial class Initial : Migration
+    public partial class version2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace LearnEnglish.Migrations
                 {
                     InstructionId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -42,7 +42,7 @@ namespace LearnEnglish.Migrations
                 {
                     ThemeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Rank = table.Column<byte>(type: "tinyint", nullable: false),
                     IsActive = table.Column<short>(type: "smallint", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -62,7 +62,7 @@ namespace LearnEnglish.Migrations
                     Info = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Rank = table.Column<byte>(type: "tinyint", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    InstructionId = table.Column<int>(type: "int", nullable: true)
+                    InstructionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -72,7 +72,7 @@ namespace LearnEnglish.Migrations
                         column: x => x.InstructionId,
                         principalTable: "Instruction",
                         principalColumn: "InstructionId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -83,7 +83,7 @@ namespace LearnEnglish.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Rank = table.Column<byte>(type: "tinyint", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    InstructionId = table.Column<int>(type: "int", nullable: true),
+                    InstructionId = table.Column<int>(type: "int", nullable: false),
                     SoundName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SoundUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -96,7 +96,7 @@ namespace LearnEnglish.Migrations
                         column: x => x.InstructionId,
                         principalTable: "Instruction",
                         principalColumn: "InstructionId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,7 +107,7 @@ namespace LearnEnglish.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Answer1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Answer2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    QuestionActivityId = table.Column<int>(type: "int", nullable: true),
+                    QuestionActivityId = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Rank = table.Column<byte>(type: "tinyint", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -120,7 +120,7 @@ namespace LearnEnglish.Migrations
                         column: x => x.QuestionActivityId,
                         principalTable: "QuestionActivity",
                         principalColumn: "QuestionActivityId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -157,7 +157,7 @@ namespace LearnEnglish.Migrations
                     QuestionId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Answer = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    QuestionActivityId = table.Column<int>(type: "int", nullable: true),
+                    QuestionActivityId = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Rank = table.Column<byte>(type: "tinyint", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -170,7 +170,7 @@ namespace LearnEnglish.Migrations
                         column: x => x.QuestionActivityId,
                         principalTable: "QuestionActivity",
                         principalColumn: "QuestionActivityId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -182,7 +182,7 @@ namespace LearnEnglish.Migrations
                     Answer = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Choice1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Choice2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    QuestionActivityId = table.Column<int>(type: "int", nullable: true),
+                    QuestionActivityId = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Rank = table.Column<byte>(type: "tinyint", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -195,7 +195,7 @@ namespace LearnEnglish.Migrations
                         column: x => x.QuestionActivityId,
                         principalTable: "QuestionActivity",
                         principalColumn: "QuestionActivityId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -204,10 +204,10 @@ namespace LearnEnglish.Migrations
                 {
                     SectionId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Rank = table.Column<byte>(type: "tinyint", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ThemeId = table.Column<int>(type: "int", nullable: true)
+                    ThemeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -217,7 +217,7 @@ namespace LearnEnglish.Migrations
                         column: x => x.ThemeId,
                         principalTable: "Themes",
                         principalColumn: "ThemeId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -226,11 +226,11 @@ namespace LearnEnglish.Migrations
                 {
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Rank = table.Column<byte>(type: "tinyint", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CategoryType = table.Column<string>(type: "VARCHAR(20)", maxLength: 20, nullable: false),
-                    SectionId = table.Column<int>(type: "int", nullable: true)
+                    SectionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -240,7 +240,7 @@ namespace LearnEnglish.Migrations
                         column: x => x.SectionId,
                         principalTable: "Sections",
                         principalColumn: "SectionId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -249,11 +249,11 @@ namespace LearnEnglish.Migrations
                 {
                     ContentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Rank = table.Column<byte>(type: "tinyint", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: true),
-                    ContentType = table.Column<string>(type: "VARCHAR(25)", maxLength: 25, nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    ContentType = table.Column<string>(type: "VARCHAR(30)", maxLength: 30, nullable: false),
                     InstructionId = table.Column<int>(type: "int", nullable: true),
                     QuestionActivityId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -265,7 +265,7 @@ namespace LearnEnglish.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "CategoryId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Contents_Instruction_InstructionId",
                         column: x => x.InstructionId,
@@ -281,29 +281,52 @@ namespace LearnEnglish.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Categories",
-                columns: new[] { "CategoryId", "CategoryType", "CreatedDate", "Name", "Rank", "SectionId" },
-                values: new object[] { 1, "GrammarTips", new DateTime(2022, 3, 13, 16, 57, 34, 24, DateTimeKind.Local).AddTicks(8079), "Grammar Tips _1", (byte)0, null });
-
-            migrationBuilder.InsertData(
-                table: "Contents",
-                columns: new[] { "ContentId", "CategoryId", "ContentType", "CreatedDate", "InstructionId", "QuestionActivityId", "Rank", "Title" },
-                values: new object[] { 1, null, "Instruction", new DateTime(2022, 3, 13, 16, 57, 34, 25, DateTimeKind.Local).AddTicks(2413), null, null, (byte)0, "Present Perfect T." });
-
-            migrationBuilder.InsertData(
                 table: "Instruction",
                 columns: new[] { "InstructionId", "CreatedDate", "Title" },
-                values: new object[] { 1, new DateTime(2022, 3, 13, 16, 57, 34, 25, DateTimeKind.Local).AddTicks(6984), "Present Perfect T." });
-
-            migrationBuilder.InsertData(
-                table: "Sections",
-                columns: new[] { "SectionId", "CreatedDate", "Rank", "ThemeId", "Title" },
-                values: new object[] { 1, new DateTime(2022, 3, 13, 16, 57, 34, 24, DateTimeKind.Local).AddTicks(3978), (byte)0, null, "1A" });
+                values: new object[,]
+                {
+                    { 1, new DateTime(2022, 10, 7, 1, 28, 29, 902, DateTimeKind.Local).AddTicks(4059), "Present Perfect T. part-1" },
+                    { 2, new DateTime(2022, 10, 7, 1, 28, 29, 902, DateTimeKind.Local).AddTicks(5068), "Present Perfect T. part-2" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Themes",
                 columns: new[] { "ThemeId", "CreatedDate", "IsActive", "Level", "Rank", "Title" },
-                values: new object[] { 1, new DateTime(2022, 3, 13, 16, 57, 34, 19, DateTimeKind.Local).AddTicks(9026), (short)1, 0, (byte)0, "Theme-1" });
+                values: new object[,]
+                {
+                    { 1, new DateTime(2022, 10, 7, 1, 28, 29, 893, DateTimeKind.Local).AddTicks(8366), (short)1, 0, (byte)0, "Theme-1" },
+                    { 2, new DateTime(2022, 10, 7, 1, 28, 29, 897, DateTimeKind.Local).AddTicks(964), (short)1, 0, (byte)1, "Theme-2" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Sections",
+                columns: new[] { "SectionId", "CreatedDate", "Rank", "ThemeId", "Title" },
+                values: new object[] { 1, new DateTime(2022, 10, 7, 1, 28, 29, 899, DateTimeKind.Local).AddTicks(7703), (byte)0, 1, "1A" });
+
+            migrationBuilder.InsertData(
+                table: "Sections",
+                columns: new[] { "SectionId", "CreatedDate", "Rank", "ThemeId", "Title" },
+                values: new object[] { 2, new DateTime(2022, 10, 7, 1, 28, 29, 900, DateTimeKind.Local).AddTicks(216), (byte)1, 1, "2A" });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "CategoryId", "CategoryType", "CreatedDate", "Name", "Rank", "SectionId" },
+                values: new object[] { 1, "GrammarTips", new DateTime(2022, 10, 7, 1, 28, 29, 901, DateTimeKind.Local).AddTicks(2028), "Grammar Tips _1", (byte)0, 1 });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "CategoryId", "CategoryType", "CreatedDate", "Name", "Rank", "SectionId" },
+                values: new object[] { 2, "GrammarTips", new DateTime(2022, 10, 7, 1, 28, 29, 901, DateTimeKind.Local).AddTicks(4524), "Vocabulary", (byte)0, 1 });
+
+            migrationBuilder.InsertData(
+                table: "Contents",
+                columns: new[] { "ContentId", "CategoryId", "ContentType", "CreatedDate", "InstructionId", "QuestionActivityId", "Rank", "Title" },
+                values: new object[] { 1, 1, "Instruction", new DateTime(2022, 10, 7, 1, 28, 29, 903, DateTimeKind.Local).AddTicks(6697), null, null, (byte)0, "Present Perfect T." });
+
+            migrationBuilder.InsertData(
+                table: "Contents",
+                columns: new[] { "ContentId", "CategoryId", "ContentType", "CreatedDate", "InstructionId", "QuestionActivityId", "Rank", "Title" },
+                values: new object[] { 2, 1, "Instruction", new DateTime(2022, 10, 7, 1, 28, 29, 903, DateTimeKind.Local).AddTicks(8246), null, null, (byte)1, "Conjunctions" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_SectionId",

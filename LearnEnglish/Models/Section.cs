@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -9,12 +10,14 @@ namespace LearnEnglish.Models
 {
     public class Section
     {
-        public Section()
-        {
-            Categories = new List<Category>();
-        }
+       
+        [Key]
         [Display(Name = "ID")]
         public int SectionId { get; set; }
+        [StringLength(100)]
+        [Column(TypeName = "varchar")]
+        [DisplayName("Section Name")]
+        [Required]
         [Display(Name = "Section Name")]
         public string Title { get; set; }
 

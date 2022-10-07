@@ -10,16 +10,19 @@ namespace LearnEnglish.Models
 {
     public class Theme
     {
-        public Theme()
-        {
-            Sections = new List<Section>();
-        }
-        
+        [Key]
+        [Display(Name = "ID")]
         public int ThemeId { get; set; }
-       // [DisplayName("Theme Name")]
+        [StringLength(100)]
+        [Column(TypeName = "varchar")]
+        [DisplayName("Theme Name")]
+        [Required]
         public string Title { get; set; }
+        [Display(Name = "Theme Order")]
         public byte Rank { get; set; }
+        [Range(0, 3)]
         public sbyte IsActive  { get; set; }
+        [Display(Name = "Created Date")]
         public DateTime CreatedDate { get; set; }
 
       //  [Column(TypeName = "VARCHAR"),MaxLength(2)]

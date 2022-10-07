@@ -11,7 +11,7 @@
             "z-index": 1200
         },
         baseZ: 1180,
-        message: 'Please, wait...'
+        message: 'Please, wait....'
     });
 }
 

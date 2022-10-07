@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LearnEnglish.Models
 {
-    public class MultipleChoiceQuestion:Question
+    public class MultipleChoiceQuestion:QuestionBase
     {
         public string Answer { get; set; }
         public string Choice1 { get; set; }

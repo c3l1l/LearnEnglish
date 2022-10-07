@@ -35,12 +35,14 @@ namespace LearnEnglish.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.Property<byte>("Rank")
                         .HasColumnType("tinyint");
 
-                    b.Property<int?>("SectionId")
+                    b.Property<int>("SectionId")
                         .HasColumnType("int");
 
                     b.HasKey("CategoryId");
@@ -54,9 +56,19 @@ namespace LearnEnglish.Migrations
                         {
                             CategoryId = 1,
                             CategoryType = "GrammarTips",
-                            CreatedDate = new DateTime(2022, 3, 13, 16, 57, 34, 24, DateTimeKind.Local).AddTicks(8079),
+                            CreatedDate = new DateTime(2022, 10, 7, 1, 28, 29, 901, DateTimeKind.Local).AddTicks(2028),
                             Name = "Grammar Tips _1",
-                            Rank = (byte)0
+                            Rank = (byte)0,
+                            SectionId = 1
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            CategoryType = "GrammarTips",
+                            CreatedDate = new DateTime(2022, 10, 7, 1, 28, 29, 901, DateTimeKind.Local).AddTicks(4524),
+                            Name = "Vocabulary",
+                            Rank = (byte)0,
+                            SectionId = 1
                         });
                 });
 
@@ -67,13 +79,13 @@ namespace LearnEnglish.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("ContentType")
                         .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("VARCHAR(25)");
+                        .HasMaxLength(30)
+                        .HasColumnType("VARCHAR(30)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -88,7 +100,9 @@ namespace LearnEnglish.Migrations
                         .HasColumnType("tinyint");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("ContentId");
 
@@ -104,10 +118,20 @@ namespace LearnEnglish.Migrations
                         new
                         {
                             ContentId = 1,
+                            CategoryId = 1,
                             ContentType = "Instruction",
-                            CreatedDate = new DateTime(2022, 3, 13, 16, 57, 34, 25, DateTimeKind.Local).AddTicks(2413),
+                            CreatedDate = new DateTime(2022, 10, 7, 1, 28, 29, 903, DateTimeKind.Local).AddTicks(6697),
                             Rank = (byte)0,
                             Title = "Present Perfect T."
+                        },
+                        new
+                        {
+                            ContentId = 2,
+                            CategoryId = 1,
+                            ContentType = "Instruction",
+                            CreatedDate = new DateTime(2022, 10, 7, 1, 28, 29, 903, DateTimeKind.Local).AddTicks(8246),
+                            Rank = (byte)1,
+                            Title = "Conjunctions"
                         });
                 });
 
@@ -122,7 +146,9 @@ namespace LearnEnglish.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("InstructionId");
 
@@ -132,8 +158,14 @@ namespace LearnEnglish.Migrations
                         new
                         {
                             InstructionId = 1,
-                            CreatedDate = new DateTime(2022, 3, 13, 16, 57, 34, 25, DateTimeKind.Local).AddTicks(6984),
-                            Title = "Present Perfect T."
+                            CreatedDate = new DateTime(2022, 10, 7, 1, 28, 29, 902, DateTimeKind.Local).AddTicks(4059),
+                            Title = "Present Perfect T. part-1"
+                        },
+                        new
+                        {
+                            InstructionId = 2,
+                            CreatedDate = new DateTime(2022, 10, 7, 1, 28, 29, 902, DateTimeKind.Local).AddTicks(5068),
+                            Title = "Present Perfect T. part-2"
                         });
                 });
 
@@ -150,7 +182,7 @@ namespace LearnEnglish.Migrations
                     b.Property<string>("Info")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("InstructionId")
+                    b.Property<int>("InstructionId")
                         .HasColumnType("int");
 
                     b.Property<byte>("Rank")
@@ -173,7 +205,7 @@ namespace LearnEnglish.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("InstructionId")
+                    b.Property<int>("InstructionId")
                         .HasColumnType("int");
 
                     b.Property<byte>("Rank")
@@ -211,7 +243,7 @@ namespace LearnEnglish.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("QuestionActivityId")
+                    b.Property<int>("QuestionActivityId")
                         .HasColumnType("int");
 
                     b.Property<byte>("Rank")
@@ -304,11 +336,13 @@ namespace LearnEnglish.Migrations
                     b.Property<byte>("Rank")
                         .HasColumnType("tinyint");
 
-                    b.Property<int?>("ThemeId")
+                    b.Property<int>("ThemeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("SectionId");
 
@@ -320,9 +354,18 @@ namespace LearnEnglish.Migrations
                         new
                         {
                             SectionId = 1,
-                            CreatedDate = new DateTime(2022, 3, 13, 16, 57, 34, 24, DateTimeKind.Local).AddTicks(3978),
+                            CreatedDate = new DateTime(2022, 10, 7, 1, 28, 29, 899, DateTimeKind.Local).AddTicks(7703),
                             Rank = (byte)0,
+                            ThemeId = 1,
                             Title = "1A"
+                        },
+                        new
+                        {
+                            SectionId = 2,
+                            CreatedDate = new DateTime(2022, 10, 7, 1, 28, 29, 900, DateTimeKind.Local).AddTicks(216),
+                            Rank = (byte)1,
+                            ThemeId = 1,
+                            Title = "2A"
                         });
                 });
 
@@ -339,7 +382,7 @@ namespace LearnEnglish.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("QuestionActivityId")
+                    b.Property<int>("QuestionActivityId")
                         .HasColumnType("int");
 
                     b.Property<byte>("Rank")
@@ -375,7 +418,9 @@ namespace LearnEnglish.Migrations
                         .HasColumnType("tinyint");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("ThemeId");
 
@@ -385,11 +430,20 @@ namespace LearnEnglish.Migrations
                         new
                         {
                             ThemeId = 1,
-                            CreatedDate = new DateTime(2022, 3, 13, 16, 57, 34, 19, DateTimeKind.Local).AddTicks(9026),
+                            CreatedDate = new DateTime(2022, 10, 7, 1, 28, 29, 893, DateTimeKind.Local).AddTicks(8366),
                             IsActive = (short)1,
                             Level = 0,
                             Rank = (byte)0,
                             Title = "Theme-1"
+                        },
+                        new
+                        {
+                            ThemeId = 2,
+                            CreatedDate = new DateTime(2022, 10, 7, 1, 28, 29, 897, DateTimeKind.Local).AddTicks(964),
+                            IsActive = (short)1,
+                            Level = 0,
+                            Rank = (byte)1,
+                            Title = "Theme-2"
                         });
                 });
 
@@ -412,7 +466,7 @@ namespace LearnEnglish.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("QuestionActivityId")
+                    b.Property<int>("QuestionActivityId")
                         .HasColumnType("int");
 
                     b.Property<byte>("Rank")
@@ -430,16 +484,22 @@ namespace LearnEnglish.Migrations
 
             modelBuilder.Entity("LearnEnglish.Models.Category", b =>
                 {
-                    b.HasOne("LearnEnglish.Models.Section", null)
+                    b.HasOne("LearnEnglish.Models.Section", "Section")
                         .WithMany("Categories")
-                        .HasForeignKey("SectionId");
+                        .HasForeignKey("SectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Section");
                 });
 
             modelBuilder.Entity("LearnEnglish.Models.Content", b =>
                 {
                     b.HasOne("LearnEnglish.Models.Category", "Category")
                         .WithMany("Contents")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("LearnEnglish.Models.Instruction", "Instruction")
                         .WithMany()
@@ -460,7 +520,9 @@ namespace LearnEnglish.Migrations
                 {
                     b.HasOne("LearnEnglish.Models.Instruction", "Instruction")
                         .WithMany("InstructionDetails")
-                        .HasForeignKey("InstructionId");
+                        .HasForeignKey("InstructionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Instruction");
                 });
@@ -469,7 +531,9 @@ namespace LearnEnglish.Migrations
                 {
                     b.HasOne("LearnEnglish.Models.Instruction", "Instruction")
                         .WithMany("InstructionSounds")
-                        .HasForeignKey("InstructionId");
+                        .HasForeignKey("InstructionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Instruction");
                 });
@@ -478,7 +542,9 @@ namespace LearnEnglish.Migrations
                 {
                     b.HasOne("LearnEnglish.Models.QuestionActivity", "QuestionActivity")
                         .WithMany("MultiGapFillingQuestions")
-                        .HasForeignKey("QuestionActivityId");
+                        .HasForeignKey("QuestionActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("QuestionActivity");
                 });
@@ -496,7 +562,9 @@ namespace LearnEnglish.Migrations
                 {
                     b.HasOne("LearnEnglish.Models.Theme", "Theme")
                         .WithMany("Sections")
-                        .HasForeignKey("ThemeId");
+                        .HasForeignKey("ThemeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Theme");
                 });
@@ -505,7 +573,9 @@ namespace LearnEnglish.Migrations
                 {
                     b.HasOne("LearnEnglish.Models.QuestionActivity", "QuestionActivity")
                         .WithMany("SingleGapFillingQuestions")
-                        .HasForeignKey("QuestionActivityId");
+                        .HasForeignKey("QuestionActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("QuestionActivity");
                 });
@@ -514,7 +584,9 @@ namespace LearnEnglish.Migrations
                 {
                     b.HasOne("LearnEnglish.Models.QuestionActivity", "QuestionActivity")
                         .WithMany("TrueFalseQuestions")
-                        .HasForeignKey("QuestionActivityId");
+                        .HasForeignKey("QuestionActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("QuestionActivity");
                 });

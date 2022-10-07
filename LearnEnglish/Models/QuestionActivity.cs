@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -9,15 +10,12 @@ namespace LearnEnglish.Models
 {
     public class QuestionActivity
     {
-        public QuestionActivity()
-        {
-            SingleGapFillingQuestions = new List<SingleGapFillingQuestion>();
-            TrueFalseQuestions = new List<TrueFalseQuestion>();
-            MultiGapFillingQuestions = new List<MultiGapFillingQuestion>();
-            MultipleChoiceQuestions = new List<MultipleChoiceQuestion>();
-        }
+        [Key]
+        [Display(Name = "ID")]
         public int QuestionActivityId { get; set; }
+        [Display(Name = "Question Activity Order")]
         public byte Rank { get; set; }
+        [DisplayName("Created Date")]
         public DateTime CreatedDate { get; set; }
         [Column(TypeName = "NVARCHAR"), MaxLength(40)]
         public QuestionType QuestionType { get; set; }

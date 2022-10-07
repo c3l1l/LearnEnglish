@@ -47,11 +47,11 @@
                             <thead>
                                 <tr>
                                     <th>Level</th>
-                                    <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Rank</th>
+                                    <th>@Html.DisplayNameFor(m => m.SingleOrDefault().ThemeId)</th>
+                                    <th>@Html.DisplayNameFor(m => m.SingleOrDefault().Title)</th>
+                                    <th>@Html.DisplayNameFor(m=>m.SingleOrDefault().Rank)</th>
                                     <th>Active/Passive State</th>
-                                    <th>Created Date</th>
+                                    <th>@Html.DisplayNameFor(m => m.SingleOrDefault().CreatedDate)</th>
                                     <th></th>
 
                                 </tr>
