@@ -31,9 +31,9 @@
                                 <a class="btn btn-primary btn-sm" asp-controller="Category" asp-action="Add">Add</a>
                             </div>
                             <div class="input-group input-group-sm " style="width: 250px;">
-                                <form id="form_section_search">
+                                <form id="form_category_search">
                                     <div class="input-group">
-                                        <input type="text" id="section_name" style="float: left" name="table_search" class="form-control float-right" placeholder="Search">
+                                        <input type="text" id="category_name" style="float: left" name="table_search" class="form-control float-right" placeholder="Search">
 
                                         <button class="btn btn-default" style="float: left">
                                             <i class="fas fa-search"></i>
@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <div class="card-body table-responsive p-0">
-                        <table class="table table-hover text-nowrap" id="section_list">
+                        <table class="table table-hover text-nowrap" id="category_list">
                             <thead>
                                 <tr>
                                     <th>@Html.DisplayNameFor(m => m.SingleOrDefault().Section.Title)</th>
@@ -93,6 +93,6 @@
 }
 
 @section PageScripts{
-    <script src="~/js/pages/section.js" asp-append-version="true"></script>
+    <script src="~/js/pages/category.js" asp-append-version="true"></script>
     <script src="~/adminlte/plugins/sweetalert2/sweetalert2.js"></script>
 }

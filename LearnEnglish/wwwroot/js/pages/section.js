@@ -156,55 +156,55 @@ function ShortDate(longDate) {
     var shortDate = (d + "." + m + "." + y);
     return shortDate;
 }
-function ThemeDeleteConfirm(sectionId) {
-    var message = sectionId;
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete Section !'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            ThemeDelete(sectionId);
-        }
-    });
-}
-function ThemeDelete(sectionId) {
-    var data = { "SectionId": sectionId }
-    $.ajax({
-        type: 'POST',
-        url: '/Section/Delete',
-        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-        data: data,
-        dataType: 'json',
-        success: function (response) {
-            if (response.result) {
-                Swal.fire(
-                    'Deleted!',
-                    response.message,
-                    'success'
-                );
-                //ThemeGet();
-            } else {
-                Swal.fire(
-                    'Uyarı!',
-                    response.message,
-                    'error'
-                );
-            }
-        },
-        error: function (request, status, error) {
-            alert(request + status + error);
-        },
-        complete: function () {
-            UnBlockPage();
-            return false;
-        }
-    });
-}
+//function ThemeDeleteConfirm(sectionId) {
+//    var message = sectionId;
+//    Swal.fire({
+//        title: 'Are you sure?',
+//        text: "You won't be able to revert this!",
+//        icon: 'warning',
+//        showCancelButton: true,
+//        confirmButtonColor: '#3085d6',
+//        cancelButtonColor: '#d33',
+//        confirmButtonText: 'Yes, delete Section !'
+//    }).then((result) => {
+//        if (result.isConfirmed) {
+//            ThemeDelete(sectionId);
+//        }
+//    });
+//}
+//function ThemeDelete(sectionId) {
+//    var data = { "SectionId": sectionId }
+//    $.ajax({
+//        type: 'POST',
+//        url: '/Section/Delete',
+//        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+//        data: data,
+//        dataType: 'json',
+//        success: function (response) {
+//            if (response.result) {
+//                Swal.fire(
+//                    'Deleted!',
+//                    response.message,
+//                    'success'
+//                );
+//                //ThemeGet();
+//            } else {
+//                Swal.fire(
+//                    'Uyarı!',
+//                    response.message,
+//                    'error'
+//                );
+//            }
+//        },
+//        error: function (request, status, error) {
+//            alert(request + status + error);
+//        },
+//        complete: function () {
+//            UnBlockPage();
+//            return false;
+//        }
+//    });
+//}
 function SectionEdit() {
     BlockPage();
     var sectionId = $('#section_section_id').text();
@@ -226,7 +226,7 @@ function SectionEdit() {
             if (response.result) {
                 toastr.success(response.message);
                 
-                response.Message = "Section added successfully";
+                response.Message = "Section updated successfully";
             }
             else {
                 toastr.error(response.message);
@@ -307,8 +307,8 @@ function SectionSearch() {
                     $('#section_list tbody').html('');
                     $('#section_list tbody').append();
 
-                    var themeRowCount = response.data.length;
-                    if (themeRowCount == 0) {
+                    var sectionRowCount = response.data.length;
+                    if (sectionRowCount == 0) {
 
                         $('#section_list tbody').append('Record not found !');
                         $("#section_list").css("border", "3px solid red");
@@ -343,6 +343,6 @@ function SectionSearch() {
     else {
         $("#section_name").css("border", "3px solid red");
         $("#section_name").attr("placeholder", "Enter a section name !");
-        ThemeGet();
+        SectionGet();
     }
 }
