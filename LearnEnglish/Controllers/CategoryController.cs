@@ -20,7 +20,7 @@ namespace LearnEnglish.Controllers
         }
         public IActionResult Index()
         {
-           var categories= _db.Categories.Include("Section").ToList();
+           var categories= _db.Categories.Include("Section").OrderBy(c=>c.Rank).ToList();
             return View(categories);
         }
 
@@ -158,7 +158,7 @@ namespace LearnEnglish.Controllers
                                    Rank = c.Rank,
                                    CreatedDate = c.CreatedDate
                                };
-                ajaxResponse.Data = categories.Where(c => c.Name.Contains(searchString)).ToList();
+                ajaxResponse.Data = categories.Where(c => c.Name.Contains(searchString)).OrderBy(c=>c.Rank).ToList();
                 //  ajaxResponse.Data = _db.Sections.Include("Theme").Where(s => s.Title.Contains(searchString)).ToList();
                 ajaxResponse.Result = true;
             }
@@ -167,6 +167,35 @@ namespace LearnEnglish.Controllers
                 ajaxResponse.Result = false;
                 ajaxResponse.Message = "Something went wrong !!";
             }
+            return Json(ajaxResponse);
+        }
+        public IActionResult RankSetter(string rank)
+        {
+            var ajaxResponse = new AjaxResponse();
+
+            // rank string = "ord[]=1&ord[]=11&ord[]=2"
+            string[] orders = rank.Split('&');         
+            
+            for (byte i = 0; i < orders.Length; i++)
+            {
+                orders[i] = orders[i].Remove(0, 6);
+                var category = _db.Categories.Where(s => s.CategoryId == int.Parse(orders[i])).SingleOrDefault();
+                category.Rank = i;
+            }
+
+            try
+            {
+                _db.SaveChanges();
+                ajaxResponse.Result = true;
+                ajaxResponse.Message = "Ordered successfully! ";
+
+            }
+            catch (Exception ex)
+            {
+                ajaxResponse.Message = "Something went wrong, Update failed ! ";
+                ajaxResponse.Result = false;
+                ajaxResponse.DetailMessage = ex.InnerException.Message;
+            }           
             return Json(ajaxResponse);
         }
     }

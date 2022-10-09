@@ -86,6 +86,36 @@
         CategorySearch();
         return false;
     });
+    $(".sortable").sortable();
+    $(".sortable").on("sortupdate", function (event, ui) {
+        BlockPage();
+        var rank = $(this).sortable("serialize");       
+        var data = {"Rank":rank}
+        $.ajax({
+            type: 'POST',
+            url: '/Category/RankSetter',
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            data: data,
+            dataType: 'json',
+            success: function (response) {
+
+                if (response.result) {
+                    toastr.success(response.message);                       
+                }
+                else {
+                    toastr.error(response.message);
+                }
+            },
+            error: function (request, status, error) {
+                alert(request + status + error);
+            },
+            complete: function () {
+                UnBlockPage();
+                return false;
+            }
+        });
+
+    });
 });
 
 function CategoryAdd() {

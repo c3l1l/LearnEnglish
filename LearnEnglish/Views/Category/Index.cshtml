@@ -47,6 +47,7 @@
                         <table class="table table-hover text-nowrap" id="category_list">
                             <thead>
                                 <tr>
+                                    <th><i class="fa fa-bars"></i></th>
                                     <th>@Html.DisplayNameFor(m => m.SingleOrDefault().Section.Title)</th>
                                     <th>@Html.DisplayNameFor(m => m.SingleOrDefault().CategoryId)</th>
                                     <th>@Html.DisplayNameFor(m => m.SingleOrDefault().Name)</th>
@@ -56,10 +57,11 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="sortable">
                                 @foreach (var category in Model)
                                 {
-                                    <tr>
+                                    <tr id="ord-@category.CategoryId">
+                                        <td><i class="fa fa-bars"></i></td>
                                         <td class="text-success font-weight-bold">@Html.DisplayFor(t => category.Section.Title)</td>
                                         <td>@Html.DisplayFor(t => category.CategoryId)</td>
                                         <td>@Html.DisplayFor(t => category.Name)</td>

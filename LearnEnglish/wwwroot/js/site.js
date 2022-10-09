@@ -1,4 +1,8 @@
-﻿function BlockPage() {
+﻿$(function () {
+    
+});
+
+function BlockPage() {
     $.blockUI({
         css: {
             border: 'none',
@@ -13,6 +17,7 @@
         baseZ: 1180,
         message: 'Please, wait....'
     });
+  
 }
 
 function UnBlockPage() {

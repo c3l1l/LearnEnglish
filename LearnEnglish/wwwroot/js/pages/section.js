@@ -71,6 +71,7 @@
         SectionSearch();
         return false;
     });
+   
 });
 function SectionAdd() {
     BlockPage();
