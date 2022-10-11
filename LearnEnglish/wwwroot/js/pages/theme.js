@@ -8,7 +8,7 @@
               ThemeSearch();
                return false;
            });
-         $("#form_theme_add").validate({
+       $("#form_theme_add").validate({
             rules: {
                 theme_title: {
                     required: true
@@ -41,7 +41,7 @@
                 ThemeAdd();
             }
     });
-         $("#form_theme_edit").validate({
+       $("#form_theme_edit").validate({
             rules: {
                 theme_title: {
                     required: true
@@ -74,13 +74,43 @@
                 ThemeEdit();
             }
     });
-         $(document).on("change",".form_is_active_change",function () {
+       $(document).on("change",".form_is_active_change",function () {
             if ($(this).prop("checked")) {
                 IsActiveStateChange($(this).attr("id"),1);
             } else {
                 IsActiveStateChange($(this).attr("id"),0);
             }
-         });
+       });
+       $(".sortable").sortable();
+       $(".sortable").on("sortupdate", function (event, ui) {
+           BlockPage();
+           var rank = $(this).sortable("serialize");
+           var data = { "Rank": rank }
+           $.ajax({
+               type: 'POST',
+               url: '/Theme/RankSetter',
+               contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+               data: data,
+               dataType: 'json',
+               success: function (response) {
+
+                   if (response.result) {
+                       toastr.success(response.message);
+                   }
+                   else {
+                       toastr.error(response.message);
+                   }
+               },
+               error: function (request, status, error) {
+                   alert(request + status + error);
+               },
+               complete: function () {
+                   UnBlockPage();
+                   return false;
+               }
+           });
+
+       });
     });
     function ThemeSearch() {
 
@@ -109,8 +139,8 @@
                             var themes = '';
                             $.each(response.data, function (index, row) {
                                 var shortDate = ShortDate(row.createdDate);
-
-                                themes += '<tr><td class="text-success font-weight-bold">' + response.levelStringList[row.level]//row.level
+                                $(".sortable").sortable('disable');
+                                themes += '<tr><td><i class="fa fa-bars"></i></td><td class="text-success font-weight-bold">' + response.levelStringList[row.level]//row.level
                                     + '</td><td>' + row.themeId
                                     + '</td><td>' + row.title
                                     + '</td><td>' + row.rank
@@ -135,6 +165,7 @@
         else {
             $("#theme_name").css("border", "3px solid red");
             $("#theme_name").attr("placeholder", "Enter a theme name !");
+            $(".sortable").sortable('enable');
             ThemeGet();
         }
     }
@@ -275,7 +306,7 @@
                         $.each(response.data, function (index, row) {
                             var shortDate = ShortDate(row.createdDate);
                             
-                            themes += '<tr><td class="text-success font-weight-bold">' + response.levelStringList[row.level]//row.level
+                            themes += '<tr id="ord-' + row.themeId + '"><td><i class="fa fa-bars"></i></td><td class="text-success font-weight-bold">' + response.levelStringList[row.level]//row.level
                                 + '</td><td>' + row.themeId
                                 + '</td><td>' + row.title
                                 + '</td><td>' + row.rank

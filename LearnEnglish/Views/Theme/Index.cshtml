@@ -46,20 +46,22 @@
                         <table class="table table-hover text-nowrap" id="theme_list">
                             <thead>
                                 <tr>
+                                    <th><i class="fa fa-bars"></i></th>
                                     <th>Level</th>
                                     <th>@Html.DisplayNameFor(m => m.SingleOrDefault().ThemeId)</th>
                                     <th>@Html.DisplayNameFor(m => m.SingleOrDefault().Title)</th>
-                                    <th>@Html.DisplayNameFor(m=>m.SingleOrDefault().Rank)</th>
+                                    <th>@Html.DisplayNameFor(m => m.SingleOrDefault().Rank)</th>
                                     <th>Active/Passive State</th>
                                     <th>@Html.DisplayNameFor(m => m.SingleOrDefault().CreatedDate)</th>
                                     <th></th>
 
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="sortable" id="sortable_body">
                                 @foreach (var theme in Model)
                                 {
-                                    <tr>
+                                    <tr id="ord-@theme.ThemeId">
+                                        <td><i class="fa fa-bars"></i></td>
                                         <td class="text-success font-weight-bold">@Html.DisplayFor(t => theme.Level)</td>
                                         <td>@Html.DisplayFor(t => theme.ThemeId)</td>
                                         <td>@Html.DisplayFor(t => theme.Title)</td>

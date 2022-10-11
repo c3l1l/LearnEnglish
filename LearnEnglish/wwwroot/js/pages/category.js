@@ -209,7 +209,7 @@ function CategoryGet() {
                     $.each(response.data, function (index, row) {
                         var shortDate = ShortDate(row.createdDate);
 
-                        categories += '<tr><td class="text-success font-weight-bold">' + row.sectionTitle
+                        categories += '<tr id="ord-' + row.categoryId + '"><td><i class="fa fa-bars"></i></td><td class="text-success font-weight-bold">' + row.sectionTitle
                             + '</td><td>' + row.categoryId
                             + '</td><td>' + row.categoryName
                             + '</td><td>' + row.categoryType
@@ -221,10 +221,7 @@ function CategoryGet() {
                     });
                     $('#category_list tbody').append(categories);
                 }
-
             }
-
-
         },
         error: function (request, status, error) {
         },
@@ -316,9 +313,9 @@ function CategorySearch() {
                         var categories = '';
                         $.each(response.data, function (index, row) {
                             var shortDate = ShortDate(row.createdDate);
+                            $(".sortable").sortable('disable');                            
 
-
-                            categories += '<tr><td class="text-success font-weight-bold">' + row.themeTitle
+                            categories += '<tr> <td><i class="fa fa-bars"></i></td><td class="text-success font-weight-bold">' + row.themeTitle
                                 + '</td><td>' + row.categoryId
                                 + '</td><td>' + row.name
                                 + '</td><td>' + row.rank
@@ -342,6 +339,8 @@ function CategorySearch() {
     else {
         $("#category_name").css("border", "3px solid red");
         $("#category_name").attr("placeholder", "Enter a section name !");
+        $(".sortable").sortable('enable');
         CategoryGet();
+        
     }
 }
