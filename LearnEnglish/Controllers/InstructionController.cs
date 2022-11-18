@@ -2,7 +2,9 @@
 using LearnEnglish.Migrations;
 using LearnEnglish.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace LearnEnglish.Controllers
@@ -18,11 +20,12 @@ namespace LearnEnglish.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            Instruction model = JsonConvert.DeserializeObject<Instruction>(TempData["instruction"].ToString());
+            return View(model);
         }
-        
+
         [HttpPost]
-        public IActionResult Add(string RichText,int Id)
+        public IActionResult Add(string RichText, int Id)
         {
             var ajaxResponse = new AjaxResponse();
             try
@@ -42,14 +45,15 @@ namespace LearnEnglish.Controllers
             {
                 ajaxResponse.Result = false;
                 ajaxResponse.Message = "Something went wrong.";
-                ajaxResponse.DetailMessage = e.InnerException.Message;                
+                ajaxResponse.DetailMessage = e.InnerException.Message;
             }
             return Json(ajaxResponse);
         }
-        public IActionResult GetDetails()
+        [HttpPost]
+        public IActionResult GetDetails(int Id)
         {
             var ajaxResponse = new AjaxResponse();
-           var details= _db.InstructionDetails.ToList();
+           var details= _db.InstructionDetails.Where(x=>x.InstructionId==Id).ToList();
             ajaxResponse.Data = details;
             ajaxResponse.Message = "test";
             ajaxResponse.Result=true;

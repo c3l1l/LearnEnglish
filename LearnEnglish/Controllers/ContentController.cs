@@ -4,6 +4,7 @@ using LearnEnglish.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,8 +62,9 @@ namespace LearnEnglish.Controllers
                     _db.Instruction.Add(instruction);
                     _db.SaveChanges();
                     var instructionId = instruction.InstructionId;
-                   var content= AddContent(instructionId,Title,CategoryId,ContentType);
-                    return View("Instruction", instruction);
+                   var content= AddContent(instructionId,Title,CategoryId,ContentType);                  
+                    TempData["instruction"] = JsonConvert.SerializeObject(instruction);                   
+                    return RedirectToAction("Index", "Instruction");
                 }
                 catch (Exception)
                 {
@@ -72,11 +74,11 @@ namespace LearnEnglish.Controllers
             if (ContentType.Equals(ContentType.QuestionActivity))
             {
                 //question activity kodlari yazilacak/
-            }
-            return View("Instruction");
+            }           
+            return RedirectToAction("Index","Instruction");
         }
 
-       public Content AddContent(int instructionId,string Title, int CategoryId, ContentType ContentType)
+        public Content AddContent(int instructionId,string Title, int CategoryId, ContentType ContentType)
         {
             try
             {
@@ -94,38 +96,7 @@ namespace LearnEnglish.Controllers
             catch (Exception)
             {
                 throw;
-            }
-            
-           
-        }
-
-
-
-        //public IActionResult Add(string Title,int CategoryId,ContentType ContentType)
-        //{
-        //    var ajaxResponse = new AjaxResponse();
-
-        //    try
-        //    {
-        //        var content = new Content();
-        //        content.Title = Title;
-        //        content.ContentType = ContentType;
-        //        content.CreatedDate = DateTime.Now;
-        //        content.CategoryId = CategoryId;
-        //        content.Rank = byte.MinValue;
-        //        _db.Contents.Add(content);
-        //        _db.SaveChanges();
-        //        ajaxResponse.Result = true;
-        //        ajaxResponse.Message = "Content added successfully";
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        ajaxResponse.Result = false;
-        //        ajaxResponse.Message = "something went wrong !";
-        //        ajaxResponse.DetailMessage = e.InnerException.Message;
-        //    }         
-
-        //    return Json(ajaxResponse);
-        //}
+            }          
+        }      
     }
 }
