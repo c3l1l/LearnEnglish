@@ -21,6 +21,7 @@ namespace LearnEnglish.Models
         public string Title { get; set; }
         [DisplayName("Created Date")]
         public DateTime CreatedDate { get; set; }
+      
         public List<InstructionDetail> InstructionDetails { get; set; }
         public List<InstructionSound> InstructionSounds { get; set; }
        // public Content Content { get; set; }

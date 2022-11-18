@@ -25,12 +25,15 @@ namespace LearnEnglish.Models
         public DateTime CreatedDate { get; set; }
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
+        [ForeignKey("Instruction")]
+        public int InstructionId { get; set; }   ///asdf
         public Category Category { get; set; }
 
         [Column(TypeName = "VARCHAR"), MaxLength(30)]
         public ContentType ContentType { get; set; }
-        public Instruction Instruction { get; set; }
-        public QuestionActivity QuestionActivity { get; set; }
+
+        public Instruction? Instruction { get; set; }
+        public QuestionActivity? QuestionActivity { get; set; }
 
     }
     public enum ContentType
